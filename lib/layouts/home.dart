@@ -7,15 +7,11 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState  extends State<Home> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Weather'),
-        centerTitle: true,
-      ),
-      body: const Text('Good Morning'),
+    return const Scaffold(
+      body: SafeArea(child: Text('Good Morning')),
     );
   }
 }
