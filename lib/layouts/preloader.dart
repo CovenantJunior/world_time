@@ -9,10 +9,15 @@ class Preloader extends StatefulWidget {
 
 class _PreloaderState extends State<Preloader> {
 
+  void fetchData () async {
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    fetchData();
   }
 
   @override
