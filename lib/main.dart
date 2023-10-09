@@ -6,7 +6,7 @@ import 'package:world_time/layouts/preloader.dart';
 void main() {
   runApp(
     MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/',
       routes: {
         '/' : (context) => const Preloader(),
         '/home' : (context) => const Home(),

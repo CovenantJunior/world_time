@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 
 class Preloader extends StatefulWidget {
   const Preloader({super.key});
@@ -9,9 +9,10 @@ class Preloader extends StatefulWidget {
 }
 
 class _PreloaderState extends State<Preloader> {
-
-  void fetchData () async {
-
+  void fetchData() async {
+    Response response =
+        get('https://jsonplaceholder.typicode.com/todos/1' as Uri) as Response;
+    print(response);
   }
 
   @override
