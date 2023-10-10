@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 class Preloader extends StatefulWidget {
@@ -10,9 +12,10 @@ class Preloader extends StatefulWidget {
 
 class _PreloaderState extends State<Preloader> {
   void fetchData() async {
-    final response = await http
+    Response response = await http
         .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
-    print(response.body);
+    Map data = jsonDecode(response.body);
+    print(data['title']);
   }
 
   @override
