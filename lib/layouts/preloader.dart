@@ -19,6 +19,8 @@ class _PreloaderState extends State<Preloader> {
     /* setState(() {
       time = init.time;
     }); */
+    print('Fetched successfully');
+    Navigator.pushReplacement(context, '/home');
   }
 
   @override
