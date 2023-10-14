@@ -15,15 +15,15 @@ class _PreloaderState extends State<Preloader> {
         Uri.parse('http://worldtimeapi.org/api/timezone/Europe/London'));
     Map data = jsonDecode(response.body);
     String datetime = data['datetime'];
-    String utc_offset = data['utc_offset'];
+    String utc_offset = data['utc_offset'].substring(1, 3);
 
-    // print(datetime);
-    // print(utc_offset);
+    print(datetime);
+    print(utc_offset);
 
     // Create Datetime() object
     DateTime now = DateTime.parse(datetime);
-    // now.add()
-    // print(now);
+    now = now.add(Duration(hours: int.parse(utc_offset)));
+    print(now);
   }
 
   @override
