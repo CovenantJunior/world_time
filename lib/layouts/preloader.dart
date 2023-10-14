@@ -9,11 +9,16 @@ class Preloader extends StatefulWidget {
 }
 
 class _PreloaderState extends State<Preloader> {
+  String time = 'Loading...';
+
   void setupWorldTime() async {
     WorldTime init =
         WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'Asia/Tokyo');
     await init.getTime();
     print(init.time);
+    setState(() {
+      time = init.time;
+    });
   }
 
   @override
@@ -25,8 +30,8 @@ class _PreloaderState extends State<Preloader> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('Loading...'),
+    return Scaffold(
+      body: SafeArea(child: Text(time)),
     );
   }
 }
