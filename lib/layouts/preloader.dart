@@ -10,17 +10,27 @@ class Preloader extends StatefulWidget {
 }
 
 class _PreloaderState extends State<Preloader> {
-  void fetchData() async {
-    Response response = await get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+  void getTime() async {
+    Response response = await get(
+        Uri.parse('http://worldtimeapi.org/api/timezone/Europe/London'));
     Map data = jsonDecode(response.body);
-    print(data['title']);
+    String datetime = data['datetime'];
+    String utc_offset = data['utc_offset'];
+
+    // print(datetime);
+    // print(utc_offset);
+
+    // Create Datetime() object
+    DateTime now = DateTime.parse(datetime);
+    // now.add()
+    // print(now);
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchData();
+    getTime();
   }
 
   @override
