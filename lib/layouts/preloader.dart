@@ -20,7 +20,11 @@ class _PreloaderState extends State<Preloader> {
       time = init.time;
     }); */
     print('Fetched successfully');
-    Navigator.pushReplacementNamed(context, '/home');
+    await Navigator.pushReplacementNamed(context, '/home', arguments: {
+      init.location,
+      init.flag,
+      init.time
+    });
   }
 
   @override
