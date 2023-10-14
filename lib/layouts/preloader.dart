@@ -15,10 +15,10 @@ class _PreloaderState extends State<Preloader> {
     WorldTime init =
         WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'Asia/Tokyo');
     await init.getTime();
-    print(init.time);
-    setState(() {
+    // print(init.time);
+    /* setState(() {
       time = init.time;
-    });
+    }); */
   }
 
   @override
