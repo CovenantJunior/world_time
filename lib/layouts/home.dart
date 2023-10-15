@@ -8,34 +8,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late String location; // Location for the UI
-  late String time; // Location Time
-  late String flag; // Location Flag URL
 
   Map data = {};
 
   @override
   Widget build(BuildContext context) {
+    
+    data = ModalRoute.of(context)?.settings.arguments as Map;
 
-    ModalRoute.of(context)?.settings.arguments;
+    print(data);
 
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/choose_location');
-            },
-            child: const Row(
-              children: <Widget>[
-                Icon(Icons.edit_location),
-                Text('Choose Location'),
-              ],
-            ),
-          ),
-        ],
-      )),
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/choose_location');
+                },
+                child: const Row(
+                  children: <Widget>[
+                    Icon(Icons.edit_location),
+                    Text('Choose Location'),
+                  ],
+                ),
+              ),
+          ],
+        )
+      ),
     );
   }
 }
