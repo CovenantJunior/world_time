@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
   late String location; // Location for the UI
@@ -24,7 +25,7 @@ class WorldTime {
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(utcOffset)));
 
-      time = now.toString();
+      time = DateFormat.jm().format(now);
     } catch (e) {
       print(e);
       time = 'Failed to fetch';
