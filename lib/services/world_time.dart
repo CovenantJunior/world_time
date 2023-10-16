@@ -23,10 +23,11 @@ class WorldTime {
       // print(utcOffset);
 
       // Create Datetime() object
-      isDayTime = (1 == 0) ? true : false;
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(utcOffset)));
 
+      // Set time props
+      isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;
       time = DateFormat.jm().format(now);
     } catch (e) {
       print(e);
