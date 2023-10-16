@@ -26,6 +26,7 @@ class _PreloaderState extends State<Preloader> {
       'location': init.location,
       'flag': init.flag,
       'time': init.time,
+      'isDayTime': init.isDayTime
     });
   }
 
