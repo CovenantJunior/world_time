@@ -8,71 +8,79 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   Map data = {};
 
   @override
   Widget build(BuildContext context) {
-    
     data = ModalRoute.of(context)?.settings.arguments as Map;
+
+    String theme = '';
+
+    if (data['isDayTime'] == 1) {
+      theme = 'images/sunrise.jpg';
+    } else if (data['isDayTime'] == 2) {
+      theme = 'images/day.jpg';
+    } else if (data['isDayTime'] == 3) {
+      theme = 'images/sunset.jpg';
+    } else if (data['isDayTime'] == 2) {
+      theme = 'images/night.jpg';
+    }
+    else {}
 
     print(data);
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/choose_location');
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.edit_location,
-                      color: Colors.blue[900]
-                    ),
-                    Text(
-                      'Choose Location',
-                      style: TextStyle(
-                        color: Colors.blue[900],
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(theme),
+                fit: BoxFit.cover
+              )
+            ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/choose_location');
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.edit_location, color: Colors.blue[900]),
+                      Text(
+                        'Choose Location',
+                        style: TextStyle(
+                          color: Colors.blue[900],
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      data['location'],
+                      style: TextStyle(color: Colors.blue[900], fontSize: 30),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 30
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    data['location'],
-                    style: TextStyle(
-                      color: Colors.blue[900],
-                      fontSize: 30
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                data['time'],
-                style: TextStyle(
-                  color: Colors.blue[900],
-                  fontSize: 60
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
-          ),
-        )
+                Text(
+                  data['time'],
+                  style: TextStyle(color: Colors.blue[900], fontSize: 60),
+                ),
+              ],
+            ),
+                  ),
+          )
       ),
     );
   }
