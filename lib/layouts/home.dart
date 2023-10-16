@@ -29,24 +29,32 @@ class _HomeState extends State<Home> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/choose_location');
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.edit_location),
-                    Text('Choose Location'),
+                    Icon(
+                      Icons.edit_location,
+                      color: Colors.blue[900]
+                    ),
+                    Text(
+                      'Choose Location',
+                      style: TextStyle(
+                        color: Colors.blue[900],
+                      ),
+                    ),
                   ],
                 ),
               ),
               const SizedBox(
-                height: 0
+                height: 30
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     data['location'],
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    style: TextStyle(
+                      color: Colors.blue[900],
                       fontSize: 30
                     ),
                   ),
@@ -57,8 +65,8 @@ class _HomeState extends State<Home> {
               ),
               Text(
                 data['time'],
-                style: const TextStyle(
-                  color: Colors.blue,
+                style: TextStyle(
+                  color: Colors.blue[900],
                   fontSize: 60
                 ),
               ),

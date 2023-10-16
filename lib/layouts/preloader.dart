@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:world_time/services/world_time.dart';
 
 class Preloader extends StatefulWidget {
@@ -38,7 +39,15 @@ class _PreloaderState extends State<Preloader> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Text(time)),
+      backgroundColor: Colors.blue[900],
+      body: const SafeArea(
+        child: Center(
+          child: SpinKitPouringHourGlass(
+            color: Colors.white,
+            size: 100,
+          ),
+        )
+      ),
     );
   }
 }
