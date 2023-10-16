@@ -7,6 +7,7 @@ class WorldTime {
   late String time; // Location Time
   late String flag; // Location Flag URL
   late String url; // Location for API
+  bool isDayTime = true; // If daytime or not
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -22,6 +23,7 @@ class WorldTime {
       // print(utcOffset);
 
       // Create Datetime() object
+      isDayTime = (1 == 0) ? true : false;
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(utcOffset)));
 
