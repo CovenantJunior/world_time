@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
       theme = 'images/day.jpg';
     } else if (data['isDayTime'] == 3) {
       theme = 'images/sunset.jpg';
-    } else if (data['isDayTime'] == 2) {
+    } else if (data['isDayTime'] == 4) {
       theme = 'images/night.jpg';
     }
     else {}

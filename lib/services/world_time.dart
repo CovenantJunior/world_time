@@ -7,7 +7,8 @@ class WorldTime {
   late String time; // Location Time
   late String flag; // Location Flag URL
   late String url; // Location for API
-  int isDayTime = 1; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
+  int isDayTime =
+      0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -28,13 +29,16 @@ class WorldTime {
 
       // Set time props
       // isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;
+      print(now.hour);
       if (now.hour >= 6 && now.hour < 7) {
         isDayTime = 1;
       } else if (now.hour >= 7 && now.hour < 17) {
         isDayTime = 2;
       } else if (now.hour >= 17 && now.hour < 19) {
         isDayTime = 3;
-      } else if (now.hour >= 19 && now.hour < 6) {
+      } else if (now.hour >= 19) {
+        isDayTime = 4;
+      } else if (now.hour < 6) {
         isDayTime = 4;
       }
       time = DateFormat.jm().format(now);
