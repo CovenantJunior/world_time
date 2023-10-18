@@ -24,8 +24,9 @@ class _HomeState extends State<Home> {
       theme = 'images/sunset.jpg';
     } else if (data['isDayTime'] == 4) {
       theme = 'images/night.jpg';
+    } else {
+      theme = 'images/night-landscape.jpg';
     }
-    else {}
 
     print(data);
 
