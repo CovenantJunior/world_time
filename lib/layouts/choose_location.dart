@@ -12,11 +12,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: Colors.blue,
         title: const Text('Choose a location'),
         centerTitle: true,
       ),
-      backgroundColor: Colors.blue[900],
+      backgroundColor: Colors.blue,
       body: const Center(
         child: SafeArea(
           child: Text(
