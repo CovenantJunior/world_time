@@ -389,7 +389,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
     }); */
     print('Fetched successfully');
     // ignore: use_build_context_synchronously
-    await Navigator.pushReplacementNamed(context, '/home', arguments: {
+    Navigator.pop(context, {
       'location': init.location,
       'flag': init.flag,
       'time': init.time,
