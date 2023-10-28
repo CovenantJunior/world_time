@@ -1,12 +1,15 @@
 // import 'package:http/http.dart';
 
 class TimeZones {
+  // num get length => null;
+
+  late List timezones;
   /*
     For flags
     https://flagsapi.com/$iso/flat/64.png
   */
 
-  Future<void> getTimezones() async {
+  void getTimezones() async {
     List<Map<String, String>> timezones = [
       {"timezone": "Africa/Abidjan", "iso": "CI"},
       {"timezone": "Africa/Algiers", "iso": "DZ"},
@@ -360,6 +363,6 @@ class TimeZones {
       {"timezone": "WET", "iso": "WET"}
     ];
 
-    print(timezones);
+    print(timezones.length);
   }
 }
