@@ -410,8 +410,22 @@ class _ChooseLocationState extends State<ChooseLocation> {
             itemBuilder: (BuildContext context, int index) {
               return Card(
                 child: ListTile(
-                  onTap: () {
-                    print(locations[index]);
+                  onTap: () async {
+                    WorldTime init =
+                        WorldTime(location: locations[index].location, flag: locations[index].flag, url: locations[index].url);
+                    await init.getTime();
+                    // print(init.time);
+                    /* setState(() {
+                      time = init.time;
+                    }); */
+                    print('Fetched successfully');
+                    // ignore: use_build_context_synchronously
+                    await Navigator.pushReplacementNamed(context, '/home', arguments: {
+                      'location': init.location,
+                      'flag': init.flag,
+                      'time': init.time,
+                      'isDayTime': init.isDayTime
+                    });
                   },
                   title: Text(locations[index].location),
                   leading: Container(
