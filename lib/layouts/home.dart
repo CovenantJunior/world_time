@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
           )
         ),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 300, 0, 0),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
