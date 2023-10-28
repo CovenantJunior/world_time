@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_time/services/timezones.dart';
 import 'package:world_time/services/world_time.dart';
 
 class ChooseLocation extends StatefulWidget {
@@ -9,6 +10,9 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  
+  TimeZones timezones = TimeZones();
+
   WorldTime location = WorldTime(location: '', url: '', flag: '');
 
   @override
