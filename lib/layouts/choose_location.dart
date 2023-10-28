@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 // import 'package:world_time/services/timezones.dart';
 import 'package:world_time/services/world_time.dart';
@@ -379,9 +380,16 @@ class _ChooseLocationState extends State<ChooseLocation> {
     }
   }
 
+  String cleanString(String originalString) {
+    String modifiedString = originalString.replaceAll('_', ' ');
+    return modifiedString;
+  }
+
   void updateTime(int index) async {
-    WorldTime init =
-        WorldTime(location: locations[index].location, flag: locations[index].flag, url: locations[index].url);
+    WorldTime init = WorldTime(
+        location: locations[index].location,
+        flag: locations[index].flag,
+        url: locations[index].url);
     await init.getTime();
     // print(init.time);
     /* setState(() {
@@ -408,6 +416,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String url = timezones[i]['timezone'];
       String iso = timezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
       locations.add(WorldTime(location: location, url: url, flag: flag));
     }
   }
@@ -415,38 +424,54 @@ class _ChooseLocationState extends State<ChooseLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue[900],
-          title: const Text('Choose a location'),
-          centerTitle: true,
-        ),
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-          child: ListView.builder(
-            itemCount: locations.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                child: ListTile(
-                  onTap: () async {
-                    updateTime(index);
-                  },
-                  title: Text(locations[index].location),
-                  leading: Container(
-                    height: 50,
-                    child: CircleAvatar(
+      appBar: AppBar(
+        backgroundColor: Colors.blue[900],
+        title: const Text('Choose a location'),
+        centerTitle: true,
+      ),
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 10),
+        child: ListView.builder(
+          itemCount: locations.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+              child: ListTile(
+                onTap: () async {
+                  updateTime(index);
+                },
+                title: Text(cleanString(locations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: locations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) => CircleAvatar(
                       onBackgroundImageError: (exception, stackTrace) {
-                        locations[index].flag = 'https://static.thenounproject.com/png/309968-200.png';
+                        locations[index].flag =
+                            'images/flags/neutral.png'; // If flag doesn't exist
                       },
-                      backgroundImage: NetworkImage(locations[index].flag),
+                      backgroundImage: AssetImage(locations[index].flag),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      backgroundImage: imageProvider,
                       backgroundColor: Colors.transparent,
                       radius: 50,
                     ),
                   ),
-                )
-              );
-            },
-          ),
-        ));
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

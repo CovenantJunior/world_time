@@ -10,6 +10,11 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Map data = {};
 
+  String cleanString(String originalString) {
+    String modifiedString = originalString.replaceAll('_', ' ');
+    return modifiedString;
+  }
+
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map;
@@ -74,7 +79,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  data['location'],
+                  cleanString(data['location']),
                   style: const TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ],
