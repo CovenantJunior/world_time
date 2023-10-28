@@ -451,12 +451,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
                       valueColor:
                           AlwaysStoppedAnimation<Color>(Colors.transparent),
                     ),
-                    errorWidget: (context, url, error) => CircleAvatar(
-                      onBackgroundImageError: (exception, stackTrace) {
-                        locations[index].flag =
-                            'images/flags/neutral.png'; // If flag doesn't exist
-                      },
-                      backgroundImage: AssetImage(locations[index].flag),
+                    errorWidget: (context, url, error) => const CircleAvatar(
+                      backgroundImage: AssetImage('images/flags/neutral.png'),
                       backgroundColor: Colors.transparent,
                       radius: 50,
                     ),
