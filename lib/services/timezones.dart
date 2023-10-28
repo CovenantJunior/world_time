@@ -6,7 +6,7 @@ class TimeZones {
     https://flagsapi.com/$iso/flat/64.png
   */
 
-  Future<void> getTimezOnes() async {
+  Future<void> getTimezones() async {
     List<Map<String, String>> timezones = [
       {"timezone": "Africa/Abidjan", "iso": "CI"},
       {"timezone": "Africa/Algiers", "iso": "DZ"},

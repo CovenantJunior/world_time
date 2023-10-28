@@ -11,9 +11,15 @@ class ChooseLocation extends StatefulWidget {
 
 class _ChooseLocationState extends State<ChooseLocation> {
   
-  TimeZones timezones = TimeZones();
-
+  TimeZones timezones = TimeZones(); 
   WorldTime location = WorldTime(location: '', url: '', flag: '');
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    timezones.getTimezones();
+  }
 
   @override
   Widget build(BuildContext context) {
