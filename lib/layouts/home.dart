@@ -44,8 +44,17 @@ class _HomeState extends State<Home> {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/choose_location');
+              onPressed: () async {
+                // Navigator.pushNamed(context, '/choose_location');
+                dynamic result = await Navigator.pushNamed(context, '/choose_location');
+                setState(() {
+                  data = {
+                    'location': result['location'],
+                    'flag': result['flag'],
+                    'time': result['time'],
+                    'isDayTime': result['isDayTime']
+                  };
+                });
               },
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
