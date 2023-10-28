@@ -4,6 +4,8 @@ class TimeZones {
   // num get length => null;
 
   late List timezones;
+
+  num get length => null;
   /*
     For flags
     https://flagsapi.com/$iso/flat/64.png
