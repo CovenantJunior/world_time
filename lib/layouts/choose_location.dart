@@ -452,7 +452,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                           AlwaysStoppedAnimation<Color>(Colors.transparent),
                     ),
                     errorWidget: (context, url, error) => const CircleAvatar(
-                      backgroundImage: AssetImage('images/flags/neutral.png'),
+                      backgroundImage: AssetImage('images/flags/timezone.png'),
                       backgroundColor: Colors.transparent,
                       radius: 50,
                     ),

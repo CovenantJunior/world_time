@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:world_time/services/world_time.dart';
+import 'package:world_time/services/user_time.dart';
 
 class Preloader extends StatefulWidget {
   const Preloader({super.key});
@@ -13,13 +13,19 @@ class _PreloaderState extends State<Preloader> {
   String time = 'Loading...';
 
   void setupWorldTime() async {
-    WorldTime init =
+    /* WorldTime init =
         WorldTime(location: 'Tokyo', flag: 'japan.png', url: 'Asia/Tokyo');
-    await init.getTime();
+    await init.getTime(); */
     // print(init.time);
     /* setState(() {
       time = init.time;
     }); */
+
+    // Use the UserTime() class
+    UserTime init =
+        UserTime();
+    await init.getUserTime();
+
     print('Fetched successfully');
     // ignore: use_build_context_synchronously
     await Navigator.pushReplacementNamed(context, '/home', arguments: {

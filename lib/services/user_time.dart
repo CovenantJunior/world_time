@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
-class WorldTime {
+class UserTime {
   late String location; // Location for the UI
   late String time; // Location Time
   late String flag; // Location Flag URL
@@ -10,13 +10,33 @@ class WorldTime {
   int isDayTime =
       0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
-  WorldTime({required this.location, required this.flag, required this.url});
+  UserTime();
 
-  Future<void> getTime() async {
+  String extractLocation(timezone) {
+    String timeZone = timezone;
+
+    List<String> parts = timeZone.split('/');
+    if (parts.length > 2) {
+      String mainLocation = "${parts[1]} / ${parts[2]}";
+      return mainLocation; // This will print "Argentina / Buenos_Aires"
+    } else if (parts.length == 2) {
+      String mainLocation = parts[1];
+      return mainLocation;
+    } else {
+      String mainLocation = parts[0];
+      return mainLocation;
+    }
+  }
+
+  Future<void> getUserTime() async {
     try {
       Response response =
-          await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          await get(Uri.parse('https://worldtimeapi.org/api/ip'));
+
       Map data = jsonDecode(response.body);
+      location = extractLocation(data['timezone']);
+      url = data['timezone'];
+      flag = "";
       String datetime = data['datetime'];
       String utcOffset = data['utc_offset'].substring(1, 3);
 
