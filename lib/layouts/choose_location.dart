@@ -11,7 +11,7 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
-  List<Map<dynamic, dynamic>> timezones = [
+  List<Map<dynamic, dynamic>> africaTimezones = [
     {"timezone": "Africa/Abidjan", "iso": "CI"},
     {"timezone": "Africa/Algiers", "iso": "DZ"},
     {"timezone": "Africa/Bissau", "iso": "GW"},
@@ -30,7 +30,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Africa/Sao_Tome", "iso": "ST"},
     {"timezone": "Africa/Tripoli", "iso": "LY"},
     {"timezone": "Africa/Tunis", "iso": "TN"},
-    {"timezone": "Africa/Windhoek", "iso": "NA"},
+    {"timezone": "Africa/Windhoek", "iso": "NA"}
+  ];
+  List<Map<dynamic, dynamic>> americaTimezones = [
     {"timezone": "America/Adak", "iso": "US"},
     {"timezone": "America/Anchorage", "iso": "US"},
     {"timezone": "America/Araguaina", "iso": "BR"},
@@ -150,14 +152,20 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "America/Vancouver", "iso": "CA"},
     {"timezone": "America/Whitehorse", "iso": "CA"},
     {"timezone": "America/Winnipeg", "iso": "CA"},
-    {"timezone": "America/Yakutat", "iso": "US"},
+    {"timezone": "America/Yakutat", "iso": "US"}
+  ];
+
+  List<Map<dynamic, dynamic>> antarticaTimezones = [
     {"timezone": "Antarctica/Casey", "iso": "AQ"},
     {"timezone": "Antarctica/Davis", "iso": "AQ"},
     {"timezone": "Antarctica/Macquarie", "iso": "AU"},
     {"timezone": "Antarctica/Mawson", "iso": "AQ"},
     {"timezone": "Antarctica/Palmer", "iso": "AQ"},
     {"timezone": "Antarctica/Rothera", "iso": "AQ"},
-    {"timezone": "Antarctica/Troll", "iso": "AQ"},
+    {"timezone": "Antarctica/Troll", "iso": "AQ"}
+  ];
+
+  List<Map<dynamic, dynamic>> asiaTimezones = [
     {"timezone": "Asia/Almaty", "iso": "KZ"},
     {"timezone": "Asia/Amman", "iso": "JO"},
     {"timezone": "Asia/Anadyr", "iso": "RU"},
@@ -232,7 +240,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Asia/Yakutsk", "iso": "RU"},
     {"timezone": "Asia/Yangon", "iso": "MM"},
     {"timezone": "Asia/Yekaterinburg", "iso": "RU"},
-    {"timezone": "Asia/Yerevan", "iso": "AM"},
+    {"timezone": "Asia/Yerevan", "iso": "AM"}
+  ];
+
+  List<Map<dynamic, dynamic>> atlanticTimezones = [
     {"timezone": "Atlantic/Azores", "iso": "PT"},
     {"timezone": "Atlantic/Bermuda", "iso": "BM"},
     {"timezone": "Atlantic/Canary", "iso": "ES"},
@@ -240,7 +251,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Atlantic/Faroe", "iso": "FO"},
     {"timezone": "Atlantic/Madeira", "iso": "PT"},
     {"timezone": "Atlantic/South_Georgia", "iso": "GS"},
-    {"timezone": "Atlantic/Stanley", "iso": "FK"},
+    {"timezone": "Atlantic/Stanley", "iso": "FK"}
+  ];
+
+  List<Map<dynamic, dynamic>> australiaTimezones = [
     {"timezone": "Australia/Adelaide", "iso": "AU"},
     {"timezone": "Australia/Brisbane", "iso": "AU"},
     {"timezone": "Australia/Broken_Hill", "iso": "AU"},
@@ -251,40 +265,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Australia/Lord_Howe", "iso": "AU"},
     {"timezone": "Australia/Melbourne", "iso": "AU"},
     {"timezone": "Australia/Perth", "iso": "AU"},
-    {"timezone": "Australia/Sydney", "iso": "AU"},
-    {"timezone": "CET", "iso": "CET"},
-    {"timezone": "CST6CDT", "iso": "CST6CDT"},
-    {"timezone": "EET", "iso": "EET"},
-    {"timezone": "EST", "iso": "EST"},
-    {"timezone": "EST5EDT", "iso": "EST5EDT"},
-    {"timezone": "Etc/GMT", "iso": "Etc/GMT"},
-    {"timezone": "Etc/GMT+1", "iso": "Etc/GMT+1"},
-    {"timezone": "Etc/GMT+10", "iso": "Etc/GMT+10"},
-    {"timezone": "Etc/GMT+11", "iso": "Etc/GMT+11"},
-    {"timezone": "Etc/GMT+12", "iso": "Etc/GMT+12"},
-    {"timezone": "Etc/GMT+2", "iso": "Etc/GMT+2"},
-    {"timezone": "Etc/GMT+3", "iso": "Etc/GMT+3"},
-    {"timezone": "Etc/GMT+4", "iso": "Etc/GMT+4"},
-    {"timezone": "Etc/GMT+5", "iso": "Etc/GMT+5"},
-    {"timezone": "Etc/GMT+6", "iso": "Etc/GMT+6"},
-    {"timezone": "Etc/GMT+7", "iso": "Etc/GMT+7"},
-    {"timezone": "Etc/GMT+8", "iso": "Etc/GMT+8"},
-    {"timezone": "Etc/GMT+9", "iso": "Etc/GMT+9"},
-    {"timezone": "Etc/GMT-1", "iso": "Etc/GMT-1"},
-    {"timezone": "Etc/GMT-10", "iso": "Etc/GMT-10"},
-    {"timezone": "Etc/GMT-11", "iso": "Etc/GMT-11"},
-    {"timezone": "Etc/GMT-12", "iso": "Etc/GMT-12"},
-    {"timezone": "Etc/GMT-13", "iso": "Etc/GMT-13"},
-    {"timezone": "Etc/GMT-14", "iso": "Etc/GMT-14"},
-    {"timezone": "Etc/GMT-2", "iso": "Etc/GMT-2"},
-    {"timezone": "Etc/GMT-3", "iso": "Etc/GMT-3"},
-    {"timezone": "Etc/GMT-4", "iso": "Etc/GMT-4"},
-    {"timezone": "Etc/GMT-5", "iso": "Etc/GMT-5"},
-    {"timezone": "Etc/GMT-6", "iso": "Etc/GMT-6"},
-    {"timezone": "Etc/GMT-7", "iso": "Etc/GMT-7"},
-    {"timezone": "Etc/GMT-8", "iso": "Etc/GMT-8"},
-    {"timezone": "Etc/GMT-9", "iso": "Etc/GMT-9"},
-    {"timezone": "Etc/UTC", "iso": "Etc/UTC"},
+    {"timezone": "Australia/Sydney", "iso": "AU"}
+  ];
+
+  List<Map<dynamic, dynamic>> europeTimezones = [
     {"timezone": "Europe/Andorra", "iso": "AD"},
     {"timezone": "Europe/Astrakhan", "iso": "RU"},
     {"timezone": "Europe/Athens", "iso": "GR"},
@@ -323,14 +307,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Europe/Volgograd", "iso": "RU"},
     {"timezone": "Europe/Warsaw", "iso": "PL"},
     {"timezone": "Europe/Zurich", "iso": "CH"},
-    {"timezone": "HST", "iso": "US"},
+  ];
+
+  List<Map<dynamic, dynamic>> indianTimezones = [
     {"timezone": "Indian/Chagos", "iso": "IO"},
     {"timezone": "Indian/Maldives", "iso": "MV"},
-    {"timezone": "Indian/Mauritius", "iso": "MU"},
-    {"timezone": "MET", "iso": "MET"},
-    {"timezone": "MST", "iso": "MST"},
-    {"timezone": "MST7MDT", "iso": "MST7MDT"},
-    {"timezone": "PST8PDT", "iso": "PST8PDT"},
+    {"timezone": "Indian/Mauritius", "iso": "MU"}
+  ];
+
+  List<Map<dynamic, dynamic>> pacificTimezones = [
     {"timezone": "Pacific/Apia", "iso": "WS"},
     {"timezone": "Pacific/Auckland", "iso": "NZ"},
     {"timezone": "Pacific/Bougainville", "iso": "PG"},
@@ -361,6 +346,47 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "Pacific/Tahiti", "iso": "PF"},
     {"timezone": "Pacific/Tarawa", "iso": "KI"},
     {"timezone": "Pacific/Tongatapu", "iso": "TO"},
+  ];
+
+  List<Map<dynamic, dynamic>> generalTimezones = [
+    {"timezone": "CET", "iso": "CET"},
+    {"timezone": "CST6CDT", "iso": "CST6CDT"},
+    {"timezone": "EET", "iso": "EET"},
+    {"timezone": "EST", "iso": "EST"},
+    {"timezone": "EST5EDT", "iso": "EST5EDT"},
+    {"timezone": "Etc/GMT", "iso": "Etc/GMT"},
+    {"timezone": "Etc/GMT+1", "iso": "Etc/GMT+1"},
+    {"timezone": "Etc/GMT+10", "iso": "Etc/GMT+10"},
+    {"timezone": "Etc/GMT+11", "iso": "Etc/GMT+11"},
+    {"timezone": "Etc/GMT+12", "iso": "Etc/GMT+12"},
+    {"timezone": "Etc/GMT+2", "iso": "Etc/GMT+2"},
+    {"timezone": "Etc/GMT+3", "iso": "Etc/GMT+3"},
+    {"timezone": "Etc/GMT+4", "iso": "Etc/GMT+4"},
+    {"timezone": "Etc/GMT+5", "iso": "Etc/GMT+5"},
+    {"timezone": "Etc/GMT+6", "iso": "Etc/GMT+6"},
+    {"timezone": "Etc/GMT+7", "iso": "Etc/GMT+7"},
+    {"timezone": "Etc/GMT+8", "iso": "Etc/GMT+8"},
+    {"timezone": "Etc/GMT+9", "iso": "Etc/GMT+9"},
+    {"timezone": "Etc/GMT-1", "iso": "Etc/GMT-1"},
+    {"timezone": "Etc/GMT-10", "iso": "Etc/GMT-10"},
+    {"timezone": "Etc/GMT-11", "iso": "Etc/GMT-11"},
+    {"timezone": "Etc/GMT-12", "iso": "Etc/GMT-12"},
+    {"timezone": "Etc/GMT-13", "iso": "Etc/GMT-13"},
+    {"timezone": "Etc/GMT-14", "iso": "Etc/GMT-14"},
+    {"timezone": "Etc/GMT-2", "iso": "Etc/GMT-2"},
+    {"timezone": "Etc/GMT-3", "iso": "Etc/GMT-3"},
+    {"timezone": "Etc/GMT-4", "iso": "Etc/GMT-4"},
+    {"timezone": "Etc/GMT-5", "iso": "Etc/GMT-5"},
+    {"timezone": "Etc/GMT-6", "iso": "Etc/GMT-6"},
+    {"timezone": "Etc/GMT-7", "iso": "Etc/GMT-7"},
+    {"timezone": "Etc/GMT-8", "iso": "Etc/GMT-8"},
+    {"timezone": "Etc/GMT-9", "iso": "Etc/GMT-9"},
+    {"timezone": "Etc/UTC", "iso": "Etc/UTC"},
+    {"timezone": "MET", "iso": "MET"},
+    {"timezone": "MST", "iso": "MST"},
+    {"timezone": "MST7MDT", "iso": "MST7MDT"},
+    {"timezone": "HST", "iso": "US"},
+    {"timezone": "PST8PDT", "iso": "PST8PDT"},
     {"timezone": "WET", "iso": "WET"}
   ];
 
@@ -385,7 +411,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
     return modifiedString;
   }
 
-  void updateTime(int index) async {
+  void updateTime(List locations, int index) async {
     WorldTime init = WorldTime(
         location: locations[index].location,
         flag: locations[index].flag,
@@ -405,19 +431,109 @@ class _ChooseLocationState extends State<ChooseLocation> {
     });
   }
 
-  List<WorldTime> locations = [];
+  List<WorldTime> africaLocations = [];
+  List<WorldTime> americaLocations = [];
+  List<WorldTime> antarticaLocations = [];
+  List<WorldTime> asiaLocations = [];
+  List<WorldTime> atlanticLocations = [];
+  List<WorldTime> australiaLocations = [];
+  List<WorldTime> europeLocations = [];
+  List<WorldTime> indianLocations = [];
+  List<WorldTime> pacificLocations = [];
+  List<WorldTime> generalLocations = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (int i = 0; i < timezones.length; i++) {
-      String location = extractLocation(timezones[i]['timezone']);
-      String url = timezones[i]['timezone'];
-      String iso = timezones[i]['iso'];
+    for (int i = 0; i < africaTimezones.length; i++) {
+      String location = extractLocation(africaTimezones[i]['timezone']);
+      String url = africaTimezones[i]['timezone'];
+      String iso = africaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      locations.add(WorldTime(location: location, url: url, flag: flag));
+      africaLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < americaTimezones.length; i++) {
+      String location = extractLocation(americaTimezones[i]['timezone']);
+      String url = americaTimezones[i]['timezone'];
+      String iso = americaTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      americaLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < antarticaTimezones.length; i++) {
+      String location = extractLocation(antarticaTimezones[i]['timezone']);
+      String url = antarticaTimezones[i]['timezone'];
+      String iso = antarticaTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      antarticaLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < asiaTimezones.length; i++) {
+      String location = extractLocation(asiaTimezones[i]['timezone']);
+      String url = asiaTimezones[i]['timezone'];
+      String iso = asiaTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      asiaLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < atlanticTimezones.length; i++) {
+      String location = extractLocation(atlanticTimezones[i]['timezone']);
+      String url = atlanticTimezones[i]['timezone'];
+      String iso = atlanticTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      atlanticLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < australiaTimezones.length; i++) {
+      String location = extractLocation(australiaTimezones[i]['timezone']);
+      String url = australiaTimezones[i]['timezone'];
+      String iso = australiaTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      australiaLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < europeTimezones.length; i++) {
+      String location = extractLocation(europeTimezones[i]['timezone']);
+      String url = europeTimezones[i]['timezone'];
+      String iso = europeTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      europeLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < indianTimezones.length; i++) {
+      String location = extractLocation(indianTimezones[i]['timezone']);
+      String url = indianTimezones[i]['timezone'];
+      String iso = indianTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      indianLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < pacificTimezones.length; i++) {
+      String location = extractLocation(pacificTimezones[i]['timezone']);
+      String url = pacificTimezones[i]['timezone'];
+      String iso = pacificTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      pacificLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    for (int i = 0; i < generalTimezones.length; i++) {
+      String location = extractLocation(generalTimezones[i]['timezone']);
+      String url = generalTimezones[i]['timezone'];
+      String iso = generalTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      generalLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
   }
 
@@ -432,40 +548,715 @@ class _ChooseLocationState extends State<ChooseLocation> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 10),
-        child: ListView.builder(
-          itemCount: locations.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-              child: ListTile(
-                onTap: () async {
-                  updateTime(index);
-                },
-                title: Text(cleanString(locations[index].location)),
-                leading: SizedBox(
-                  height: 50,
-                  child: CachedNetworkImage(
-                    imageUrl: locations[index].flag,
-                    placeholder: (context, url) =>
-                        const CircularProgressIndicator(
-                      value: null,
-                      valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.transparent),
-                    ),
-                    errorWidget: (context, url, error) => const CircleAvatar(
-                      backgroundImage: AssetImage('images/flags/timezone.png'),
-                      backgroundColor: Colors.transparent,
-                      radius: 50,
-                    ),
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                      backgroundImage: imageProvider,
-                      backgroundColor: Colors.transparent,
-                      radius: 50,
-                    ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Africa',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            );
-          },
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: africaLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(africaLocations, index);
+                          },
+                          title: Text(cleanString(africaLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: africaLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'America',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: americaLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(americaLocations, index);
+                          },
+                          title: Text(cleanString(americaLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: americaLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Antartica',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: antarticaLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(antarticaLocations, index);
+                          },
+                          title: Text(cleanString(antarticaLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: antarticaLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Asia',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: asiaLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(asiaLocations, index);
+                          },
+                          title: Text(cleanString(asiaLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: asiaLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Atlantic',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: atlanticLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(atlanticLocations, index);
+                          },
+                          title: Text(cleanString(atlanticLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: atlanticLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Australia',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: australiaLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(australiaLocations, index);
+                          },
+                          title: Text(cleanString(australiaLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: australiaLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Europe',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: europeLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(europeLocations, index);
+                          },
+                          title: Text(cleanString(europeLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: europeLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Indian',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: indianLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(indianLocations, index);
+                          },
+                          title: Text(cleanString(indianLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: indianLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'Pacific',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: pacificLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(pacificLocations, index);
+                          },
+                          title: Text(cleanString(pacificLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: pacificLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+
+              const SizedBox(
+                height: 50,
+              ),
+
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Text(
+                  'General',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const Divider(
+                // Add a horizontal line below the heading
+                thickness: .5, // You can adjust the thickness
+                color: Colors.grey, // You can change the color
+                indent: 5, // You can set an indent from the left
+                endIndent: 5, // You can set an indent from the right
+              ),
+              ListView.builder(
+                shrinkWrap:
+                    true, // This makes the inner ListView only take the space it needs
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: generalLocations.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Card(
+                      child: SizedBox(
+                        height: 70,
+                        child: ListTile(
+                          onTap: () async {
+                            updateTime(generalLocations, index);
+                          },
+                          title: Text(cleanString(generalLocations[index].location)),
+                          leading: SizedBox(
+                            height: 50,
+                            child: CachedNetworkImage(
+                              imageUrl: generalLocations[index].flag,
+                              placeholder: (context, url) =>
+                                const CircularProgressIndicator(
+                                  value: null,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    Colors.transparent),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                  backgroundImage:
+                                    AssetImage('images/flags/timezone.png'),
+                                    backgroundColor: Colors.transparent,
+                                    radius: 50,
+                              ),
+                              imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                                  backgroundImage: imageProvider,
+                                  backgroundColor: Colors.transparent,
+                                  radius: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
