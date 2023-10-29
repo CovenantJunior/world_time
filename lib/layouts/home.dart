@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
       theme = 'images/night-landscape.jpg';
     }
 
-    print(data);
+    // print(data);
 
     return Scaffold(
       body: LiquidPullToRefresh(

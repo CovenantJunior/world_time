@@ -19,10 +19,10 @@ class WorldTime {
       Map data = jsonDecode(response.body);
       String datetime = data['datetime'];
       String utcOffset = data['utc_offset'].substring(1, 3);
-      print(utcOffset);
+      print(datetime);
 
       // Determine the sign of the UTC offset (+ or -)
-      bool isNegativeOffset = utcOffset.startsWith('-');
+      bool isNegativeOffset = data['utc_offset'].startsWith('-');
       utcOffset = utcOffset.substring(1); // Remove the sign
 
       // print(datetime);
@@ -31,9 +31,9 @@ class WorldTime {
       // Create Datetime() object
       DateTime now = DateTime.parse(datetime);
       if (isNegativeOffset) {
-        now = now.add(Duration(hours: int.parse(utcOffset)));
-      } else {
         now = now.subtract(Duration(hours: int.parse(utcOffset)));
+      } else {
+        now = now.add(Duration(hours: int.parse(utcOffset)));
       }
 
       // Set time props
@@ -52,7 +52,7 @@ class WorldTime {
       }
       time = DateFormat.jm().format(now);
     } catch (e) {
-      print(e);
+      // print(e);
       time = 'Failed to fetch';
     }
   }
