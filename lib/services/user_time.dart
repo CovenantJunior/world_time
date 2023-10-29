@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:timezone/timezone.dart';
 
 class UserTime {
   late String location; // Location for the UI
@@ -63,8 +64,21 @@ class UserTime {
       }
       time = DateFormat.jm().format(now);
     } catch (e) {
-      print(e);
-      time = 'Failed to fetch';
+      location = 'Connection Error\r\nPull to Refresh';
+      DateTime now = DateTime.now();
+      time = DateFormat('h:mm a').format(now);
+      flag = '';
+      if (now.hour >= 6 && now.hour < 7) {
+        isDayTime = 1;
+      } else if (now.hour >= 7 && now.hour < 17) {
+        isDayTime = 2;
+      } else if (now.hour >= 17 && now.hour < 19) {
+        isDayTime = 3;
+      } else if (now.hour >= 19) {
+        isDayTime = 4;
+      } else if (now.hour < 6) {
+        isDayTime = 4;
+      }
     }
   }
 }
