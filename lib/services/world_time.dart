@@ -20,12 +20,20 @@ class WorldTime {
       String datetime = data['datetime'];
       String utcOffset = data['utc_offset'].substring(1, 3);
 
+      // Determine the sign of the UTC offset (+ or -)
+      bool isNegativeOffset = utcOffset.startsWith('-');
+      utcOffset = utcOffset.substring(1); // Remove the sign
+
       // print(datetime);
       // print(utcOffset);
 
       // Create Datetime() object
       DateTime now = DateTime.parse(datetime);
-      now = now.add(Duration(hours: int.parse(utcOffset)));
+      if (isNegativeOffset) {
+        now = now.add(Duration(hours: int.parse(utcOffset)));
+      } else {
+        now = now.subtract(Duration(hours: int.parse(utcOffset)));
+      }
 
       // Set time props
       // isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;

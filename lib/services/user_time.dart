@@ -1,7 +1,6 @@
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:timezone/timezone.dart';
 
 class UserTime {
   late String location; // Location for the UI
