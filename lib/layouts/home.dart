@@ -39,6 +39,7 @@ class _HomeState extends State<Home> {
         'isDayTime': init.isDayTime
       };
     });
+  }
 
   @override
   Widget build(BuildContext context) {
