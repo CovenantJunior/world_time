@@ -17,13 +17,6 @@ class _HomeState extends State<Home> {
     return modifiedString;
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    timeRefresh(data);
-  }
-
   Future<void> timeRefresh(Map data) async {
     WorldTime init = WorldTime(
         location: data['location'],
@@ -43,6 +36,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map;
+
     String theme = '';
 
     if (data['isDayTime'] == 1) {
