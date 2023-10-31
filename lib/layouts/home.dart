@@ -53,13 +53,11 @@ class _HomeState extends State<Home> {
       Timer.periodic(const Duration(seconds: 1), (_) {
         final currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
-          Future.delayed(const Duration(seconds: 7), () {
-            setState(() {
-              data = {
-                'time': DateFormat.jm().format(currentTime),
-              };
-              // scheduleCustomUpdate(timeUpdate, init.seconds);
-            });
+          setState(() {
+            data = {
+              'time': DateFormat.jm().format(currentTime),
+            };
+            // scheduleCustomUpdate(timeUpdate, init.seconds);
           });
         }
         lastTime = currentTime;
