@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart';
 
@@ -18,6 +20,31 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> timeRefresh(Map data) async {
+    WorldTime init = WorldTime(
+        location: data['location'],
+        flag: data['location'],
+        url: data['url']); // Access data directly
+    await init.getTime();
+    setState(() {
+      this.data = {
+        'url': init.url,
+        'location': init.location,
+        'flag': init.flag,
+        'time': init.time,
+        'isDayTime': init.isDayTime
+      };
+    });
+  }
+
+  void scheduleMinutesUpdate(Function minutesUpdate) {
+    const oneMinute = Duration(minutes: 1);
+
+    Timer.periodic(oneMinute, (timer) {
+      minutesUpdate();
+    });
+  }
+
+  Future<void> minutesUpdate(Map data) async {
     WorldTime init = WorldTime(
         location: data['location'],
         flag: data['location'],
