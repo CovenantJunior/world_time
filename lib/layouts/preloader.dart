@@ -26,7 +26,6 @@ class _PreloaderState extends State<Preloader> {
         UserTime();
     await init.getUserTime();
 
-    print('Fetched successfully');
     // ignore: use_build_context_synchronously
     await Navigator.pushReplacementNamed(context, '/home', arguments: {
       'url': init.url,

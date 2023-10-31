@@ -53,6 +53,7 @@ class WorldTime {
         isDayTime = 4;
       }
       time = DateFormat.jm().format(now);
+      print('Fetched successfully');
     } catch (e) {
       // print(e);
       time = 'Failed to fetch';

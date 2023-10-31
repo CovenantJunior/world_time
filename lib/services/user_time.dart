@@ -60,7 +60,6 @@ class UserTime {
       seconds = now.second;
       // Set time props
       // isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;
-      print(now.hour);
       if (now.hour >= 6 && now.hour < 7) {
         isDayTime = 1;
       } else if (now.hour >= 7 && now.hour < 17) {
@@ -73,6 +72,7 @@ class UserTime {
         isDayTime = 4;
       }
       time = DateFormat.jm().format(now);
+      print('Fetched successfully');
     } catch (e) {
       location = 'Connection Error\r\nPull to Refresh';
       DateTime now = DateTime.now();

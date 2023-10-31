@@ -19,10 +19,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty
-        ? data
-        : ModalRoute.of(context)?.settings.arguments as Map;
-
     /* void minutesUpdateInterval(Function timeUpdate) {
       const oneMinute = Duration(minutes: 1);
 
@@ -58,6 +54,13 @@ class _HomeState extends State<Home> {
         scheduleCustomUpdate(timeUpdate, init.seconds);
       });
     }
+
+    data = data.isNotEmpty
+        ? data
+        : ModalRoute.of(context)?.settings.arguments as Map;
+    print(data);
+    
+    scheduleCustomUpdate(timeUpdate, data['seconds']);
 
     String theme = '';
 
