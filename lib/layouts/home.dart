@@ -54,9 +54,7 @@ class _HomeState extends State<Home> {
         final currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
           setState(() {
-            data = {
-              'time': DateFormat('h:mm a').format(DateTime.now()),
-            };
+            data['time'] = DateFormat('h:mm a').format(DateTime.now());
             // scheduleCustomUpdate(timeUpdate, init.seconds);
           });
         }
