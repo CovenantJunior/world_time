@@ -38,9 +38,9 @@ class WorldTime {
       }
 
       seconds = now.second;
+      print(seconds);
       // Set time props
       // isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;
-      // print(now.hour);
       if (now.hour >= 6 && now.hour < 7) {
         isDayTime = 1;
       } else if (now.hour >= 7 && now.hour < 17) {

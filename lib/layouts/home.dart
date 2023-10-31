@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
                           'seconds': result['seconds'],
                           'isDayTime': result['isDayTime']
                         };
-                        scheduleCustomUpdate(timeUpdate, result['time']);
+                        scheduleCustomUpdate(timeUpdate, result['seconds']);
                       });
                     },
                     child: const Row(
