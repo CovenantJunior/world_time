@@ -114,6 +114,7 @@ class _HomeState extends State<Home> {
                           'url': result['url'],
                           'location': result['location'],
                           'flag': result['flag'],
+                          'time': result['time'],
                           'isDayTime': result['isDayTime']
                         };
                         // scheduleCustomUpdate(timeUpdate, result['seconds']);

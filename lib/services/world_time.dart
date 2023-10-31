@@ -53,7 +53,8 @@ class WorldTime {
       print('Fetched successfully');
     } catch (e) {
       // print(e);
-      time = 'Failed to fetch';
+      DateTime now = DateTime.now();
+      time = DateFormat('h:mm a').format(now);
     }
   }
 }

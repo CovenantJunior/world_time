@@ -72,10 +72,11 @@ class UserTime {
       time = DateFormat.jm().format(now);
       print('Fetched successfully');
     } catch (e) {
-      location = 'Connection Error\r\nPull to Refresh';
+      location = 'N/A';
       DateTime now = DateTime.now();
       time = DateFormat('h:mm a').format(now);
       flag = '';
+      url = '';
       if (now.hour >= 6 && now.hour < 7) {
         isDayTime = 1;
       } else if (now.hour >= 7 && now.hour < 17) {
