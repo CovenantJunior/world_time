@@ -7,7 +7,6 @@ class WorldTime {
   late String time; // Location Time
   late String flag; // Location Flag URL
   late String url; // Location for API
-  late int seconds; // Get seconds for prospective calculations
   int isDayTime =
       0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
@@ -37,8 +36,6 @@ class WorldTime {
         now = now.add(Duration(hours: int.parse(utcOffset)));
       }
 
-      seconds = now.second;
-      print(seconds);
       // Set time props
       // isDayTime = (now.hour >= 6 && now.hour <= 18) ? true : false;
       if (now.hour >= 6 && now.hour < 7) {

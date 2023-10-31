@@ -19,16 +19,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    
-    void minutesUpdateInterval(Function timeUpdate, Map data) {
-      Duration oneMinute =
-          const Duration(seconds: 60) - Duration(seconds: data['seconds']);
-
-      Timer.periodic(oneMinute, (timer) {
-        timeUpdate(data);
-      });
-    }
-
     /* void scheduleCustomUpdate(Function timeUpdate, int seconds) {
       Duration timeOut =
           const Duration(seconds: 60) - Duration(seconds: seconds);
@@ -50,10 +40,23 @@ class _HomeState extends State<Home> {
           'location': init.location,
           'flag': init.flag,
           'time': init.time,
-          'seconds': init.seconds,
           'isDayTime': init.isDayTime
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
+      });
+    }
+
+    void minuteChangeDetector() {
+      DateTime lastTime = DateTime.now();
+
+      Timer.periodic(const Duration(seconds: 1), (_) {
+        final currentTime = DateTime.now();
+        if (currentTime.minute != lastTime.minute) {
+          Future.delayed(const Duration(seconds: 7), () {
+            timeUpdate(data);
+          });
+        }
+        lastTime = currentTime;
       });
     }
 
@@ -62,8 +65,7 @@ class _HomeState extends State<Home> {
         : ModalRoute.of(context)?.settings.arguments as Map;
     print(data);
 
-    // scheduleCustomUpdate(timeUpdate, data['seconds']);
-    minutesUpdateInterval(timeUpdate, data);
+    minuteChangeDetector();
 
     String theme = '';
 
@@ -106,8 +108,6 @@ class _HomeState extends State<Home> {
                           'url': result['url'],
                           'location': result['location'],
                           'flag': result['flag'],
-                          'time': result['time'],
-                          'seconds': result['seconds'],
                           'isDayTime': result['isDayTime']
                         };
                         // scheduleCustomUpdate(timeUpdate, result['seconds']);
@@ -140,10 +140,7 @@ class _HomeState extends State<Home> {
                           flex: 1,
                           child: Row(
                             children: [
-                              Icon(
-                                Icons.edit_location,
-                                color: Colors.white
-                              ),
+                              Icon(Icons.edit_location, color: Colors.white),
                             ],
                           ),
                         ),
@@ -164,13 +161,11 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           data['time'],
-                          style:
-                              const TextStyle(
-                                color: Colors.white,
-                                fontSize: 60,
-                                fontFamily: 'MontserratAlternates',
-                                fontWeight: FontWeight.normal
-                              ),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontFamily: 'MontserratAlternates',
+                              fontWeight: FontWeight.normal),
                         ),
                       ),
                     ],

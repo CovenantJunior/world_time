@@ -433,7 +433,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
       'location': init.location,
       'flag': init.flag,
       'time': init.time,
-      'seconds': init.seconds,
       'isDayTime': init.isDayTime
     });
   }
