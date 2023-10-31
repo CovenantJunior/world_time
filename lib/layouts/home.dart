@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart';
 
@@ -11,7 +10,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   Map data = {};
 
   String cleanString(String originalString) {
@@ -19,51 +17,47 @@ class _HomeState extends State<Home> {
     return modifiedString;
   }
 
-  Future<void> timeRefresh(Map data) async {
-    WorldTime init = WorldTime(
-        location: data['location'],
-        flag: data['location'],
-        url: data['url']); // Access data directly
-    await init.getTime();
-    setState(() {
-      this.data = {
-        'url': init.url,
-        'location': init.location,
-        'flag': init.flag,
-        'time': init.time,
-        'isDayTime': init.isDayTime
-      };
-    });
-  }
-
-  void scheduleMinutesUpdate(Function minutesUpdate) {
-    const oneMinute = Duration(minutes: 1);
-
-    Timer.periodic(oneMinute, (timer) {
-      minutesUpdate();
-    });
-  }
-
-  Future<void> minutesUpdate(Map data) async {
-    WorldTime init = WorldTime(
-        location: data['location'],
-        flag: data['location'],
-        url: data['url']); // Access data directly
-    await init.getTime();
-    setState(() {
-      this.data = {
-        'url': init.url,
-        'location': init.location,
-        'flag': init.flag,
-        'time': init.time,
-        'isDayTime': init.isDayTime
-      };
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings.arguments as Map;
+    data = data.isNotEmpty
+        ? data
+        : ModalRoute.of(context)?.settings.arguments as Map;
+
+    /* void minutesUpdateInterval(Function timeUpdate) {
+      const oneMinute = Duration(minutes: 1);
+
+      Timer.periodic(oneMinute, (timer) {
+        timeUpdate();
+      });
+    } */
+
+    void scheduleCustomUpdate(Function timeUpdate, int seconds) {
+      Duration timeOut =
+          const Duration(seconds: 60) - Duration(seconds: seconds);
+
+      Future.delayed(timeOut, () {
+        timeUpdate(data);
+      });
+    }
+
+    Future<void> timeUpdate(Map data) async {
+      WorldTime init = WorldTime(
+          location: data['location'],
+          flag: data['location'],
+          url: data['url']); // Access data directly
+      await init.getTime();
+      setState(() {
+        this.data = {
+          'url': init.url,
+          'location': init.location,
+          'flag': init.flag,
+          'time': init.time,
+          'seconds': init.seconds,
+          'isDayTime': init.isDayTime
+        };
+        scheduleCustomUpdate(timeUpdate, init.seconds);
+      });
+    }
 
     String theme = '';
 
@@ -83,7 +77,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => timeRefresh(data),
+        onRefresh: () => timeUpdate(data),
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Container(
@@ -107,8 +101,10 @@ class _HomeState extends State<Home> {
                           'location': result['location'],
                           'flag': result['flag'],
                           'time': result['time'],
+                          'seconds': result['seconds'],
                           'isDayTime': result['isDayTime']
                         };
+                        scheduleCustomUpdate(timeUpdate, result['time']);
                       });
                     },
                     child: const Row(
