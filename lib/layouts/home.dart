@@ -19,22 +19,24 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    /* void minutesUpdateInterval(Function timeUpdate) {
-      const oneMinute = Duration(minutes: 1);
+    
+    void minutesUpdateInterval(Function timeUpdate, int seconds) {
+      Duration oneMinute =
+          const Duration(seconds: 60) - Duration(seconds: seconds);
 
       Timer.periodic(oneMinute, (timer) {
-        timeUpdate();
+        timeUpdate(this.data);
       });
-    } */
+    }
 
-    void scheduleCustomUpdate(Function timeUpdate, int seconds) {
+    /* void scheduleCustomUpdate(Function timeUpdate, int seconds) {
       Duration timeOut =
           const Duration(seconds: 60) - Duration(seconds: seconds);
 
       Future.delayed(timeOut, () {
         timeUpdate(data);
       });
-    }
+    } */
 
     Future<void> timeUpdate(Map data) async {
       WorldTime init = WorldTime(
@@ -51,7 +53,7 @@ class _HomeState extends State<Home> {
           'seconds': init.seconds,
           'isDayTime': init.isDayTime
         };
-        scheduleCustomUpdate(timeUpdate, init.seconds);
+        // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
     }
 
@@ -59,8 +61,9 @@ class _HomeState extends State<Home> {
         ? data
         : ModalRoute.of(context)?.settings.arguments as Map;
     print(data);
-    
-    scheduleCustomUpdate(timeUpdate, data['seconds']);
+
+    // scheduleCustomUpdate(timeUpdate, data['seconds']);
+    minutesUpdateInterval(timeUpdate, data['seconds']);
 
     String theme = '';
 
@@ -89,7 +92,7 @@ class _HomeState extends State<Home> {
                 image: DecorationImage(
                     image: AssetImage(theme), fit: BoxFit.cover)),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 300, 0, 0),
+              padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -107,42 +110,73 @@ class _HomeState extends State<Home> {
                           'seconds': result['seconds'],
                           'isDayTime': result['isDayTime']
                         };
-                        scheduleCustomUpdate(timeUpdate, result['seconds']);
+                        // scheduleCustomUpdate(timeUpdate, result['seconds']);
                       });
                     },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.edit_location, color: Colors.white),
-                        Text(
-                          'Choose Location',
-                          style: TextStyle(
-                            color: Colors.white,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          flex: 10,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  cleanString(data['location']),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 50,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.normal
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Expanded(
+                          flex: 1,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.edit_location,
+                                color: Colors.white
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  // const SizedBox(height: 30),
+                  /* const Text(
+                    'Choose Location',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ), */
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        cleanString(data['location']),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          data['time'],
+                          style:
+                              const TextStyle(
+                                color: Colors.white,
+                                fontSize: 60,
+                                fontFamily: 'MontserratAlternates',
+                                fontWeight: FontWeight.normal
+                              ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
                   const SizedBox(
                     height: 10,
-                  ),
-                  Text(
-                    data['time'],
-                    style: const TextStyle(color: Colors.white, fontSize: 60),
                   ),
                 ],
               ),
