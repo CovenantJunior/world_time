@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:world_time/services/world_time.dart';
 
 class Home extends StatefulWidget {
@@ -53,7 +54,12 @@ class _HomeState extends State<Home> {
         final currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
           Future.delayed(const Duration(seconds: 7), () {
-            timeUpdate(data);
+            setState(() {
+              data = {
+                'time': DateFormat.jm().format(currentTime),
+              };
+              // scheduleCustomUpdate(timeUpdate, init.seconds);
+            });
           });
         }
         lastTime = currentTime;
