@@ -20,12 +20,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     
-    void minutesUpdateInterval(Function timeUpdate, int seconds) {
+    void minutesUpdateInterval(Function timeUpdate, Map data) {
       Duration oneMinute =
-          const Duration(seconds: 60) - Duration(seconds: seconds);
+          const Duration(seconds: 60) - Duration(seconds: data['seconds']);
 
       Timer.periodic(oneMinute, (timer) {
-        timeUpdate(this.data);
+        timeUpdate(data);
       });
     }
 
@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
     print(data);
 
     // scheduleCustomUpdate(timeUpdate, data['seconds']);
-    minutesUpdateInterval(timeUpdate, data['seconds']);
+    minutesUpdateInterval(timeUpdate, data);
 
     String theme = '';
 
@@ -128,7 +128,7 @@ class _HomeState extends State<Home> {
                                     color: Colors.white,
                                     fontSize: 50,
                                     fontFamily: 'Lato',
-                                    fontWeight: FontWeight.normal
+                                    fontWeight: FontWeight.normal,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
