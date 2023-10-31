@@ -88,8 +88,12 @@ flutter:
     - family: Chococooky
       fonts:
         - asset: fonts/Chococooky.ttf
-        - asset: fonts/Lato/
-        - asset: fonts/Montserrat_Alternates/
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato/Lato-Thin.ttf
+    - family: MontserratAlternates
+      fonts:
+        - asset: fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
