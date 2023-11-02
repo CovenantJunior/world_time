@@ -123,55 +123,58 @@ class _HomeState extends State<Home> {
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: () async {
-                      // Navigator.pushNamed(context, '/choose_location');
-                      dynamic result = await Navigator.pushNamed(
-                          context, '/choose_location');
-                      setState(() {
-                        data = {
-                          'url': result['url'],
-                          'location': result['location'],
-                          'flag': result['flag'],
-                          'time': result['time'],
-                          'offset': result['offset'],
-                          'isDayTime': result['isDayTime']
-                        };
-                        print(data);
-                      });
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Expanded(
-                          flex: 10,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  cleanString(data['location']),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 50,
-                                    fontFamily: 'Lato',
-                                    fontWeight: FontWeight.normal,
+                  Tooltip(
+                    message: 'Choose Location',
+                    child: TextButton(
+                      onPressed: () async {
+                        // Navigator.pushNamed(context, '/choose_location');
+                        dynamic result = await Navigator.pushNamed(
+                            context, '/choose_location');
+                        setState(() {
+                          data = {
+                            'url': result['url'],
+                            'location': result['location'],
+                            'flag': result['flag'],
+                            'time': result['time'],
+                            'offset': result['offset'],
+                            'isDayTime': result['isDayTime']
+                          };
+                          print(data);
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            flex: 10,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    cleanString(data['location']),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 50,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        const Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              Icon(Icons.edit_location, color: Colors.white),
-                            ],
+                          const Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                Icon(Icons.edit_location, color: Colors.white),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   // const SizedBox(height: 30),

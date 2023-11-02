@@ -1276,7 +1276,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
         onPressed: search,
         child: IconButton(
           onPressed: search,
-          icon: const Icon(Icons.search)
+          icon: const Icon(Icons.search),
+          tooltip: 'Search Locations',
         ),
       ),
     );
