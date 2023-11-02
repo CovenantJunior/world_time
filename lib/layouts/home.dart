@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:world_time/services/world_time.dart';
 // import 'package:world_time/services/world_time.dart';
 
 class Home extends StatefulWidget {
@@ -29,30 +30,32 @@ class _HomeState extends State<Home> {
       });
     } */
 
-    /* Future<void> timeUpdate(Map data) async {
+    data = data.isNotEmpty
+        ? data
+        : ModalRoute.of(context)?.settings.arguments as Map;
+    print(data);
+
+    // ignore: non_constant_identifier_names
+    Future<void> TimezoneUpdate() async {
       WorldTime init = WorldTime(
           location: data['location'],
           flag: data['location'],
           url: data['url']); // Access data directly
       await init.getTime();
       setState(() {
-        this.data = {
+        data = {
           'url': init.url,
           'location': init.location,
           'flag': init.flag,
           'time': init.time,
+          'offset': init.offset,
           'isDayTime': init.isDayTime
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
-    } */
+    }
 
-    data = data.isNotEmpty
-        ? data
-        : ModalRoute.of(context)?.settings.arguments as Map;
-    print(data);
-
-    bool isNegativeOffset = data['offset'].startsWith('-');
+    bool isNegativeOffset = data['offset'].startsWith('-');/* 
 
     Future<void> timeUpdate(Map data) async {
       var currentTime = DateTime.now();
@@ -65,7 +68,7 @@ class _HomeState extends State<Home> {
         data['time'] = DateFormat('h:mm a').format(currentTime);
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
-    }
+    } */
 
 
     void minuteChangeDetector() {
@@ -110,10 +113,10 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: (){
-          timeUpdate(data);
+        onRefresh: () async {
+          TimezoneUpdate();
           ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('The timezone database has been synchronized.')));
+                  const SnackBar(content: Text('Timezone database has been synchronized.')));
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
