@@ -391,6 +391,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "WET", "iso": "WET"}
   ];
 
+  List<Map<dynamic, dynamic>> timezones = [];
+
+  void search() {
+    print(timezones);
+  }
+
   String extractLocation(timezone) {
     String timeZone = timezone;
 
@@ -459,6 +465,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = africaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(africaTimezones);
       africaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -468,6 +475,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = americaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(americaTimezones);
       americaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -477,6 +485,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = antarticaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(antarticaTimezones);
       antarticaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -487,6 +496,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = asiaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(asiaTimezones);
       asiaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -496,6 +506,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = atlanticTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(atlanticTimezones);
       atlanticLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -506,6 +517,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = australiaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(australiaTimezones);
       australiaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -516,6 +528,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = europeTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(europeTimezones);
       europeLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -525,6 +538,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = indianTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(indianTimezones);
       indianLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -534,6 +548,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = pacificTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(pacificTimezones);
       pacificLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -543,6 +558,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = generalTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
+      timezones.addAll(generalTimezones);
       generalLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
   }
@@ -1254,6 +1270,13 @@ class _ChooseLocationState extends State<ChooseLocation> {
               ],
             ),
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: search,
+        child: IconButton(
+          onPressed: search,
+          icon: const Icon(Icons.search)
         ),
       ),
     );
