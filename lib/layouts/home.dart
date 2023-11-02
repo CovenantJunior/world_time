@@ -110,7 +110,11 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () => timeUpdate(data),
+        onRefresh: (){
+          timeUpdate(data);
+          ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('The timezone database has been synchronized.')));
+        },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Container(
