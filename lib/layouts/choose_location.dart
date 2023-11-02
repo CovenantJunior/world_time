@@ -393,6 +393,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   List<Map<dynamic, dynamic>> timezones = [];
 
+  bool isSearch = false;
+
   void search() {
     print(timezones);
   }
@@ -570,6 +572,18 @@ class _ChooseLocationState extends State<ChooseLocation> {
         backgroundColor: Colors.blue[900],
         title: const Text('Choose a location'),
         centerTitle: true,
+        actions: !isSearch
+        ? []
+        : [
+          IconButton(
+            icon: Icon(Icons.clear),
+            onPressed: () {
+              setState(() {
+                isSearch = false;
+              });
+            }
+          )
+        ]
       ),
       backgroundColor: Colors.white,
       body: LiquidPullToRefresh(
@@ -1273,11 +1287,22 @@ class _ChooseLocationState extends State<ChooseLocation> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: search,
-        child: IconButton(
-          onPressed: search,
-          icon: const Icon(Icons.search),
+        onPressed: () {
+          setState(() {
+            isSearch = !isSearch;
+          });
+        },
+        child:  IconButton(
+          onPressed: null,
+          icon: const Icon(
+            Icons.search,
+            color: Colors.white,
+          ),
           tooltip: 'Search Locations',
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.blue[900],
+            shape: const CircleBorder(),
+          ),
         ),
       ),
     );
