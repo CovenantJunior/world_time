@@ -457,6 +457,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
   List<WorldTime> pacificLocations = [];
   List<WorldTime> generalLocations = [];
 
+  Widget _searchTextField() { //add
+    return const TextField(
+      cursorColor: Colors.white,
+      style: TextStyle(
+        color: Colors.white
+      ),
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -570,20 +579,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
-        title: const Text('Choose a location'),
-        centerTitle: true,
-        actions: !isSearch
-        ? []
-        : [
-          IconButton(
-            icon: Icon(Icons.clear),
-            onPressed: () {
-              setState(() {
-                isSearch = false;
-              });
-            }
-          )
-        ]
+        title: !isSearch ? const Text('Choose a location') : _searchTextField(),
+        centerTitle: true
       ),
       backgroundColor: Colors.white,
       body: LiquidPullToRefresh(
@@ -1294,10 +1291,15 @@ class _ChooseLocationState extends State<ChooseLocation> {
         },
         child:  IconButton(
           onPressed: null,
-          icon: const Icon(
-            Icons.search,
-            color: Colors.white,
-          ),
+          icon: !isSearch ?
+            const Icon(
+              Icons.search,
+              color: Colors.white,
+            ) :
+            const Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
           tooltip: 'Search Locations',
           style: TextButton.styleFrom(
             backgroundColor: Colors.blue[900],

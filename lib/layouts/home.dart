@@ -19,6 +19,16 @@ class _HomeState extends State<Home> {
     return modifiedString;
   }
 
+  String getCity(location) {
+    List<String> parts = location.split(' / ');
+    if (parts.length >= 2) {
+      String result = parts[1];
+      return result;
+    } else {
+      return location;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     /* void scheduleCustomUpdate(Function timeUpdate, int seconds) {
@@ -159,7 +169,7 @@ class _HomeState extends State<Home> {
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
                                   child: Text(
-                                    cleanString(data['location']),
+                                    getCity(cleanString(data['location'])),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 50,
