@@ -22,8 +22,7 @@ class _PreloaderState extends State<Preloader> {
     }); */
 
     // Use the UserTime() class
-    UserTime init =
-        UserTime();
+    UserTime init = UserTime();
     await init.getUserTime();
 
     // ignore: use_build_context_synchronously
@@ -32,6 +31,7 @@ class _PreloaderState extends State<Preloader> {
       'location': init.location,
       'flag': init.flag,
       'time': init.time,
+      'offset': init.offset,
       'isDayTime': init.isDayTime
     });
   }
@@ -48,13 +48,12 @@ class _PreloaderState extends State<Preloader> {
     return Scaffold(
       backgroundColor: Colors.blue[900],
       body: const SafeArea(
-        child: Center(
-          child: SpinKitPouringHourGlass(
-            color: Colors.white,
-            size: 100,
-          ),
-        )
-      ),
+          child: Center(
+        child: SpinKitPouringHourGlass(
+          color: Colors.white,
+          size: 100,
+        ),
+      )),
     );
   }
 }

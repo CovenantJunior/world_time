@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:world_time/services/world_time.dart';
+// import 'package:world_time/services/world_time.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
       });
     } */
 
-    Future<void> timeUpdate(Map data) async {
+    /* Future<void> timeUpdate(Map data) async {
       WorldTime init = WorldTime(
           location: data['location'],
           flag: data['location'],
@@ -45,27 +45,50 @@ class _HomeState extends State<Home> {
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
-    }
-
-    void minuteChangeDetector() {
-      DateTime lastTime = DateTime.now();
-
-      Timer.periodic(const Duration(seconds: 1), (_) {
-        final currentTime = DateTime.now();
-        if (currentTime.minute != lastTime.minute) {
-          setState(() {
-            data['time'] = DateFormat('h:mm a').format(DateTime.now());
-            // scheduleCustomUpdate(timeUpdate, init.seconds);
-          });
-        }
-        lastTime = currentTime;
-      });
-    }
+    } */
 
     data = data.isNotEmpty
         ? data
         : ModalRoute.of(context)?.settings.arguments as Map;
     print(data);
+
+    bool isNegativeOffset = data['offset'].startsWith('-');
+
+    Future<void> timeUpdate(Map data) async {
+      var currentTime = DateTime.now();
+      if (isNegativeOffset) {
+        currentTime = currentTime.subtract(Duration(hours: int.parse(data['offset'])));
+      } else {
+        currentTime = currentTime.add(Duration(hours: int.parse(data['offset'])));
+      }
+      setState(() {
+        data['time'] = DateFormat('h:mm a').format(currentTime);
+        // scheduleCustomUpdate(timeUpdate, init.seconds);
+      });
+    }
+
+
+    void minuteChangeDetector() {
+      DateTime lastTime = DateTime.now();
+
+      Timer.periodic(const Duration(seconds: 1), (_) {
+        var currentTime = DateTime.now();
+        if (currentTime.minute != lastTime.minute) {
+          int hour = currentTime.timeZoneOffset.inHours;
+          String offset = data['offset'].substring(1, 3);
+          int hourDiff = int.parse(offset) - hour;
+          if (isNegativeOffset) {
+            currentTime = currentTime.subtract(Duration(hours: hourDiff));
+          } else {
+            currentTime = currentTime.add(Duration(hours: hourDiff));
+          }
+          setState(() {
+            data['time'] = DateFormat('h:mm a').format(currentTime);
+          });
+        }
+        lastTime = currentTime;
+      });
+    }
 
     minuteChangeDetector();
 
@@ -78,7 +101,7 @@ class _HomeState extends State<Home> {
     } else if (data['isDayTime'] == 3) {
       theme = 'images/sunset.jpg';
     } else if (data['isDayTime'] == 4) {
-      theme = 'images/night.jpg';
+      theme = 'images/night-landscape.jpg';
     } else {
       theme = 'images/night-landscape.jpg';
     }
@@ -111,9 +134,10 @@ class _HomeState extends State<Home> {
                           'location': result['location'],
                           'flag': result['flag'],
                           'time': result['time'],
+                          'offset': result['offset'],
                           'isDayTime': result['isDayTime']
                         };
-                        // scheduleCustomUpdate(timeUpdate, result['seconds']);
+                        print(data);
                       });
                     },
                     child: Row(

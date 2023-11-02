@@ -9,6 +9,7 @@ class UserTime {
   late String time; // Location Time
   late String flag; // Location Flag URL
   late String url; // Location for API
+  late String offset; // Offset
   int isDayTime =
       0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
@@ -39,7 +40,7 @@ class UserTime {
       location = extractLocation(data['timezone']);
       url = data['timezone'];
       flag = "";
-      String datetime = data['datetime'];
+      offset = data['utc_offset'];
       String utcOffset = data['utc_offset'].substring(1, 3);
       // print(datetime);
 
@@ -51,6 +52,7 @@ class UserTime {
       // print(utcOffset);
 
       // Create Datetime() object
+      String datetime = data['datetime'];
       DateTime now = DateTime.parse(datetime);
       if (isNegativeOffset) {
         now = now.subtract(Duration(hours: int.parse(utcOffset)));
@@ -79,6 +81,8 @@ class UserTime {
       time = DateFormat('h:mm a').format(now);
       flag = '';
       url = '';
+      offset = '';
+
       if (now.hour >= 6 && now.hour < 7) {
         isDayTime = 1;
       } else if (now.hour >= 7 && now.hour < 17) {
@@ -94,11 +98,12 @@ class UserTime {
       Fluttertoast.showToast(
         msg: 'No internet connection, pull down to refresh',
         toastLength: Toast.LENGTH_SHORT, // Duration of the toast
-        gravity: ToastGravity.BOTTOM,   // Position of the toast (e.g., bottom, top, center)
-        timeInSecForIosWeb: 1,        // Time to show on iOS and web platforms
+        gravity: ToastGravity
+            .BOTTOM, // Position of the toast (e.g., bottom, top, center)
+        timeInSecForIosWeb: 1, // Time to show on iOS and web platforms
         backgroundColor: Colors.black, // Background color of the toast
-        textColor: Colors.white,      // Text color of the toast message
-        fontSize: 16.0,               // Font size of the message
+        textColor: Colors.white, // Text color of the toast message
+        fontSize: 16.0, // Font size of the message
       );
     }
   }

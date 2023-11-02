@@ -9,6 +9,7 @@ class WorldTime {
   late String time; // Location Time
   late String flag; // Location Flag URL
   late String url; // Location for API
+  late String offset; // Offset
   int isDayTime =
       0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
@@ -19,7 +20,7 @@ class WorldTime {
       Response response =
           await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
       Map data = jsonDecode(response.body);
-      String datetime = data['datetime'];
+      offset = data['utc_offset'];
       String utcOffset = data['utc_offset'].substring(1, 3);
       // print(datetime);
 
@@ -31,6 +32,7 @@ class WorldTime {
       // print(utcOffset);
 
       // Create Datetime() object
+      String datetime = data['datetime'];
       DateTime now = DateTime.parse(datetime);
       if (isNegativeOffset) {
         now = now.subtract(Duration(hours: int.parse(utcOffset)));
