@@ -477,7 +477,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         setState(() {
           searchResults = [];
         });
-        if (q.length >= 3) {
+        if (q.length >= 2) {
           for (var locations in allLocations) {
             if (cleanString(locations.location).toLowerCase().contains(q)) {
               searchResults.add(locations);
@@ -1237,6 +1237,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(africaTimezones);
       africaLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < americaTimezones.length; i++) {
@@ -1247,6 +1248,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(americaTimezones);
       americaLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < antarticaTimezones.length; i++) {
@@ -1258,6 +1260,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       allTimezones.addAll(antarticaTimezones);
       antarticaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
+          allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < asiaTimezones.length; i++) {
@@ -1268,6 +1271,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(asiaTimezones);
       asiaLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < atlanticTimezones.length; i++) {
@@ -1279,6 +1283,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       allTimezones.addAll(atlanticTimezones);
       atlanticLocations
           .add(WorldTime(location: location, url: url, flag: flag));
+          allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < australiaTimezones.length; i++) {
@@ -1290,6 +1295,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       allTimezones.addAll(australiaTimezones);
       australiaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
+          allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < europeTimezones.length; i++) {
@@ -1300,6 +1306,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(europeTimezones);
       europeLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < indianTimezones.length; i++) {
@@ -1310,6 +1317,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(indianTimezones);
       indianLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < pacificTimezones.length; i++) {
@@ -1320,6 +1328,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(pacificTimezones);
       pacificLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
     for (int i = 0; i < generalTimezones.length; i++) {
@@ -1330,16 +1339,17 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allTimezones.addAll(generalTimezones);
       generalLocations.add(WorldTime(location: location, url: url, flag: flag));
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
     
-    for (int i = 0; i < allTimezones.length; i++) {
+    /* for (int i = 0; i < allTimezones.length; i++) {
       String location = extractLocation(allTimezones[i]['timezone']);
       String url = allTimezones[i]['timezone'];
       String iso = allTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
       allLocations.add(WorldTime(location: location, url: url, flag: flag));
-    }
+    } */
   }
 
 
