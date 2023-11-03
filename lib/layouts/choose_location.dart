@@ -394,6 +394,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   List<Map<dynamic, dynamic>> allTimezones = [];
 
   bool isSearch = false;
+  bool isOfLength = false;
 
   void search() {
     // print(allTimezones);
@@ -432,6 +433,11 @@ class _ChooseLocationState extends State<ChooseLocation> {
         flag: locations[index].flag,
         url: locations[index].url);
     await init.getTime();
+    setState(() {
+      isSearch = false;
+      isOfLength = false;
+      searchResults.clear();
+    });
     // print(init.time);
     /* setState(() {
       time = init.time;
@@ -464,6 +470,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   List<WorldTime> location = [];
 
   List<WorldTime> searchResults = [];
+  final _textController = TextEditingController();
 
   Widget _searchTextField() { //add
     return TextField(
@@ -471,14 +478,27 @@ class _ChooseLocationState extends State<ChooseLocation> {
       style: const TextStyle(
         color: Colors.white
       ),
+      controller: _textController,
       autofocus: true,
       autocorrect: true,
+      decoration:
+        const InputDecoration(
+          labelText: 'Search Location',
+        ),
       onChanged: (q) {
-        setState(() {
-          searchResults = [];
-        });
+        if (q.isNotEmpty) {
+          setState(() {
+            isOfLength = true;
+            searchResults = [];
+          });
+        } else {
+          setState(() {
+            isOfLength = false;
+            searchResults = [];
+          });
+        }
         for (var locations in allLocations) {
-          if (cleanString(locations.location).toLowerCase().contains(q)) {
+          if (cleanString(locations.location).toLowerCase().contains(q.toLowerCase())) {
             searchResults.add(locations);
             setState(() {
               searchResults = searchResults;
@@ -1358,6 +1378,20 @@ class _ChooseLocationState extends State<ChooseLocation> {
         backgroundColor: Colors.blue[900],
         title: !isSearch ? const Text('Choose a location') : _searchTextField(),
         centerTitle: true,
+        actions: [
+          if (isOfLength) IconButton(
+            onPressed: null,
+            icon: const Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            tooltip: 'Search Locations',
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.blue[900],
+              shape: const CircleBorder(),
+            ),
+          )
+        ],
       ),
       backgroundColor: Colors.white,
       body: LiquidPullToRefresh(
@@ -1375,7 +1409,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            isSearch = !isSearch;
+            isSearch = true;
+            isOfLength = false;
             searchResults.clear();
           });
         },

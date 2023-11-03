@@ -60,7 +60,7 @@ class WorldTime {
       DateTime now = DateTime.now();
       time = DateFormat('h:mm a').format(now);
       Fluttertoast.showToast(
-        msg: 'No internet connection, pull down to refresh',
+        msg: 'You have lost internet connection',
         toastLength: Toast.LENGTH_SHORT, // Duration of the toast
         gravity: ToastGravity.BOTTOM,   // Position of the toast (e.g., bottom, top, center)
         timeInSecForIosWeb: 1,        // Time to show on iOS and web platforms
