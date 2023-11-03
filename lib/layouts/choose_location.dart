@@ -484,6 +484,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
       decoration:
         const InputDecoration(
           labelText: 'Search Location',
+          labelStyle: TextStyle(
+            color: Colors.white
+          )
         ),
       onChanged: (q) {
         if (q.isNotEmpty) {
@@ -1414,7 +1417,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            isSearch = true;
+            isSearch = !isSearch;
             isOfLength = false;
             searchResults.clear();
           });
