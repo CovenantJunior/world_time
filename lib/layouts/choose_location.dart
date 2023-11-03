@@ -432,7 +432,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         location: locations[index].location,
         flag: locations[index].flag,
         url: locations[index].url);
-    await init.getTime();
+    await init.getTime(context);
     setState(() {
       isSearch = false;
       isOfLength = false;

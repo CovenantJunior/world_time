@@ -46,12 +46,12 @@ class _HomeState extends State<Home> {
     // print(data);
 
     // ignore: non_constant_identifier_names
-    Future<void> TimezoneUpdate() async {
+    Future<void> TimezoneUpdate(BuildContext context) async {
       WorldTime init = WorldTime(
           location: data['location'],
           flag: data['location'],
           url: data['url']); // Access data directly
-      await init.getTime();
+      await init.getTime(context);
       setState(() {
         data = {
           'url': init.url,
@@ -124,9 +124,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          TimezoneUpdate();
-          ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Timezone database has been synchronized.')));
+          TimezoneUpdate(context);
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),

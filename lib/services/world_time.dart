@@ -15,7 +15,7 @@ class WorldTime {
 
   WorldTime({required this.location, required this.flag, required this.url});
 
-  Future<void> getTime() async {
+  Future<void> getTime(context) async {
     try {
       Response response =
           await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
@@ -54,6 +54,9 @@ class WorldTime {
         isDayTime = 4;
       }
       time = DateFormat.jm().format(now);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Timezone database has been synchronized.')));
       print('Fetched successfully');
     } catch (e) {
       // print(e);
