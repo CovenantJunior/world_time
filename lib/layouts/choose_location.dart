@@ -477,14 +477,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
         setState(() {
           searchResults = [];
         });
-        if (q.length >= 2) {
-          for (var locations in allLocations) {
-            if (cleanString(locations.location).toLowerCase().contains(q)) {
-              searchResults.add(locations);
-              setState(() {
-                searchResults = searchResults;
-              });
-            }
+        for (var locations in allLocations) {
+          if (cleanString(locations.location).toLowerCase().contains(q)) {
+            searchResults.add(locations);
+            setState(() {
+              searchResults = searchResults;
+            });
           }
         }
       },
