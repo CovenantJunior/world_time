@@ -422,6 +422,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   Future<void> _refresh() async {
     initState();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Timezone database has been synchronized.')));
   }
 
   void updateTime(List locations, int index) async {
@@ -472,20 +474,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
       autofocus: true,
       autocorrect: true,
       onChanged: (q) {
-        /* setState(() {
-          searchResults.clear();
-        });
-        if (q.length >= 2) {
-          for (int i = 0; i < allLocations.length; i++) {
-            if (allLocations[i].location.toLowerCase().contains(q)) {
-              searchResults.add(allLocations[i]);
-            }
-          }
-        }
-        setState(() {
-          searchResults = searchResults;
-        });
-        print(searchResults.map((e) => e.location)); */
         setState(() {
           searchResults = [];
         });
