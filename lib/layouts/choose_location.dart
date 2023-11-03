@@ -1380,7 +1380,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
         centerTitle: true,
         actions: [
           if (isOfLength) IconButton(
-            onPressed: null,
+            onPressed: () {
+              _textController.clear();
+              setState(() {
+                searchResults.clear();
+              });
+            },
             icon: const Icon(
                 Icons.close,
                 color: Colors.white,
