@@ -391,12 +391,12 @@ class _ChooseLocationState extends State<ChooseLocation> {
     {"timezone": "WET", "iso": "WET"}
   ];
 
-  List<Map<dynamic, dynamic>> timezones = [];
+  List<Map<dynamic, dynamic>> allTimezones = [];
 
   bool isSearch = false;
 
   void search() {
-    print(timezones);
+    print(allTimezones);
   }
 
   String extractLocation(timezone) {
@@ -457,12 +457,28 @@ class _ChooseLocationState extends State<ChooseLocation> {
   List<WorldTime> pacificLocations = [];
   List<WorldTime> generalLocations = [];
 
+  List<WorldTime> allLocations = [];
+
+  List<WorldTime> searchResults = [];
+
   Widget _searchTextField() { //add
-    return const TextField(
+    return TextField(
       cursorColor: Colors.white,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white
       ),
+      autofocus: true,
+      autocorrect: true,
+      onChanged: (q) {
+        setState(() {
+          searchResults.clear();
+          for (int i = 0; i < allLocations.length; i++) {
+            if (allLocations[i].location.contains(q)) {
+              searchResults.add(allLocations[i]);
+            }
+          }
+        });
+      },
     );
   }
 
@@ -476,7 +492,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = africaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(africaTimezones);
+      allTimezones.addAll(africaTimezones);
       africaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -486,7 +502,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = americaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(americaTimezones);
+      allTimezones.addAll(americaTimezones);
       americaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -496,7 +512,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = antarticaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(antarticaTimezones);
+      allTimezones.addAll(antarticaTimezones);
       antarticaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -507,7 +523,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = asiaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(asiaTimezones);
+      allTimezones.addAll(asiaTimezones);
       asiaLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -517,7 +533,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = atlanticTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(atlanticTimezones);
+      allTimezones.addAll(atlanticTimezones);
       atlanticLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -528,7 +544,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = australiaTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(australiaTimezones);
+      allTimezones.addAll(australiaTimezones);
       australiaLocations
           .add(WorldTime(location: location, url: url, flag: flag));
     }
@@ -539,7 +555,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = europeTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(europeTimezones);
+      allTimezones.addAll(europeTimezones);
       europeLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -549,7 +565,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = indianTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(indianTimezones);
+      allTimezones.addAll(indianTimezones);
       indianLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -559,7 +575,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = pacificTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(pacificTimezones);
+      allTimezones.addAll(pacificTimezones);
       pacificLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
 
@@ -569,10 +585,22 @@ class _ChooseLocationState extends State<ChooseLocation> {
       String iso = generalTimezones[i]['iso'];
       String flag = "https://flagsapi.com/$iso/flat/64.png";
       // print(flag);
-      timezones.addAll(generalTimezones);
+      allTimezones.addAll(generalTimezones);
       generalLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
+    
+    for (int i = 0; i < allTimezones.length; i++) {
+      String location = extractLocation(allTimezones[i]['timezone']);
+      String url = allTimezones[i]['timezone'];
+      String iso = allTimezones[i]['iso'];
+      String flag = "https://flagsapi.com/$iso/flat/64.png";
+      // print(flag);
+      allLocations.add(WorldTime(location: location, url: url, flag: flag));
+    }
+
+    print(allLocations);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -580,7 +608,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
         title: !isSearch ? const Text('Choose a location') : _searchTextField(),
-        centerTitle: true
+        centerTitle: true,
       ),
       backgroundColor: Colors.white,
       body: LiquidPullToRefresh(
