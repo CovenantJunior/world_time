@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
     data = data.isNotEmpty
         ? data
         : ModalRoute.of(context)?.settings.arguments as Map;
-    print(data);
+    // print(data);
 
     // ignore: non_constant_identifier_names
     Future<void> TimezoneUpdate() async {
@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
                             'offset': result['offset'],
                             'isDayTime': result['isDayTime']
                           };
-                          print(data);
+                          // print(data);
                         });
                       },
                       child: Row(

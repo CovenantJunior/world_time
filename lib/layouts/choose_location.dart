@@ -396,7 +396,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
   bool isSearch = false;
 
   void search() {
-    print(allTimezones);
+    // print(allTimezones);
   }
 
   String extractLocation(timezone) {
@@ -459,6 +459,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   List<WorldTime> allLocations = [];
 
+  List<WorldTime> location = [];
+
   List<WorldTime> searchResults = [];
 
   Widget _searchTextField() { //add
@@ -470,16 +472,769 @@ class _ChooseLocationState extends State<ChooseLocation> {
       autofocus: true,
       autocorrect: true,
       onChanged: (q) {
-        setState(() {
+        /* setState(() {
           searchResults.clear();
+        });
+        if (q.length >= 2) {
           for (int i = 0; i < allLocations.length; i++) {
-            if (allLocations[i].location.contains(q)) {
+            if (allLocations[i].location.toLowerCase().contains(q)) {
               searchResults.add(allLocations[i]);
             }
           }
+        }
+        setState(() {
+          searchResults = searchResults;
         });
+        print(searchResults.map((e) => e.location)); */
+        setState(() {
+          searchResults = [];
+        });
+        if (q.length >= 3) {
+          for (var locations in allLocations) {
+            if (cleanString(locations.location).toLowerCase().contains(q)) {
+              searchResults.add(locations);
+              setState(() {
+                searchResults = searchResults;
+              });
+            }
+          }
+        }
       },
     );
+  }
+
+  Widget searchListWidget() {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: searchResults.length, // Replace with your data source
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(searchResults, index); // Update as needed
+                },
+                title: Text(cleanString(searchResults[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: searchResults[index].flag, // Update as needed
+                    placeholder: (context, url) => const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) => const CircleAvatar(
+                      backgroundImage: AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) => CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  List<Widget> deafaultWidget() {
+    return [const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Africa',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: africaLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(africaLocations, index);
+                },
+                title: Text(
+                    cleanString(africaLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: africaLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'America',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: americaLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(americaLocations, index);
+                },
+                title: Text(
+                    cleanString(americaLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: americaLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Antartica',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: antarticaLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(antarticaLocations, index);
+                },
+                title: Text(cleanString(
+                    antarticaLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: antarticaLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Asia',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: asiaLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(asiaLocations, index);
+                },
+                title: Text(
+                    cleanString(asiaLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: asiaLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Atlantic',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: atlanticLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(atlanticLocations, index);
+                },
+                title: Text(
+                    cleanString(atlanticLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: atlanticLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Australia',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: australiaLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(australiaLocations, index);
+                },
+                title: Text(cleanString(
+                    australiaLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: australiaLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Europe',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: europeLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(europeLocations, index);
+                },
+                title: Text(
+                    cleanString(europeLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: europeLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Indian',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: indianLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(indianLocations, index);
+                },
+                title: Text(
+                    cleanString(indianLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: indianLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'Pacific',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: pacificLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(pacificLocations, index);
+                },
+                title: Text(
+                    cleanString(pacificLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: pacificLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    const SizedBox(
+      height: 50,
+    ),
+    const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+      child: Text(
+        'General',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+    const Divider(
+      // Add a horizontal line below the heading
+      thickness: .5, // You can adjust the thickness
+      color: Colors.grey, // You can change the color
+      indent: 5, // You can set an indent from the left
+      endIndent: 5, // You can set an indent from the right
+    ),
+    ListView.builder(
+      shrinkWrap:
+          true, // This makes the inner ListView only take the space it needs
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: generalLocations.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          margin: const EdgeInsets.symmetric(
+              horizontal: 0, vertical: 10),
+          child: Card(
+            child: SizedBox(
+              height: 70,
+              child: ListTile(
+                onTap: () async {
+                  updateTime(generalLocations, index);
+                },
+                title: Text(
+                    cleanString(generalLocations[index].location)),
+                leading: SizedBox(
+                  height: 50,
+                  child: CachedNetworkImage(
+                    imageUrl: generalLocations[index].flag,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(
+                      value: null,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          Colors.transparent),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const CircleAvatar(
+                      backgroundImage:
+                          AssetImage('images/flags/timezone.png'),
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        CircleAvatar(
+                      backgroundImage: imageProvider,
+                      backgroundColor: Colors.transparent,
+                      radius: 50,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    ),];
   }
 
   @override
@@ -597,8 +1352,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
       // print(flag);
       allLocations.add(WorldTime(location: location, url: url, flag: flag));
     }
-
-    print(allLocations);
   }
 
 
@@ -618,695 +1371,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Africa',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: africaLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(africaLocations, index);
-                            },
-                            title: Text(
-                                cleanString(africaLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: africaLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'America',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: americaLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(americaLocations, index);
-                            },
-                            title: Text(
-                                cleanString(americaLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: americaLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Antartica',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: antarticaLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(antarticaLocations, index);
-                            },
-                            title: Text(cleanString(
-                                antarticaLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: antarticaLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Asia',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: asiaLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(asiaLocations, index);
-                            },
-                            title: Text(
-                                cleanString(asiaLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: asiaLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Atlantic',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: atlanticLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(atlanticLocations, index);
-                            },
-                            title: Text(
-                                cleanString(atlanticLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: atlanticLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Australia',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: australiaLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(australiaLocations, index);
-                            },
-                            title: Text(cleanString(
-                                australiaLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: australiaLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Europe',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: europeLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(europeLocations, index);
-                            },
-                            title: Text(
-                                cleanString(europeLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: europeLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Indian',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: indianLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(indianLocations, index);
-                            },
-                            title: Text(
-                                cleanString(indianLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: indianLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'Pacific',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: pacificLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(pacificLocations, index);
-                            },
-                            title: Text(
-                                cleanString(pacificLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: pacificLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: Text(
-                    'General',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  // Add a horizontal line below the heading
-                  thickness: .5, // You can adjust the thickness
-                  color: Colors.grey, // You can change the color
-                  indent: 5, // You can set an indent from the left
-                  endIndent: 5, // You can set an indent from the right
-                ),
-                ListView.builder(
-                  shrinkWrap:
-                      true, // This makes the inner ListView only take the space it needs
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: generalLocations.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 10),
-                      child: Card(
-                        child: SizedBox(
-                          height: 70,
-                          child: ListTile(
-                            onTap: () async {
-                              updateTime(generalLocations, index);
-                            },
-                            title: Text(
-                                cleanString(generalLocations[index].location)),
-                            leading: SizedBox(
-                              height: 50,
-                              child: CachedNetworkImage(
-                                imageUrl: generalLocations[index].flag,
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(
-                                  value: null,
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      Colors.transparent),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('images/flags/timezone.png'),
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                                imageBuilder: (context, imageProvider) =>
-                                    CircleAvatar(
-                                  backgroundImage: imageProvider,
-                                  backgroundColor: Colors.transparent,
-                                  radius: 50,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+              children: isSearch ? [searchListWidget()] : deafaultWidget(),
             ),
           ),
         ),
@@ -1315,6 +1380,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         onPressed: () {
           setState(() {
             isSearch = !isSearch;
+            searchResults.clear();
           });
         },
         child:  IconButton(
