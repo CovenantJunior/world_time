@@ -445,7 +445,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
     print('Fetched successfully');
     // ignore: use_build_context_synchronously
     Navigator.pop(context, {
-      'url': locations[index].url,
+      'url': init.url,
       'location': init.location,
       'flag': init.flag,
       'time': init.time,
