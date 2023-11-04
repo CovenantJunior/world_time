@@ -13,6 +13,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map data = {};
+  late int isDayTime;
+  String theme = '';
 
   String cleanString(String originalString) {
     String modifiedString = originalString.replaceAll('_', ' ');
@@ -80,11 +82,27 @@ class _HomeState extends State<Home> {
       });
     } */
 
+    String setTheme (state) {
+      if (state == 1) {
+        return theme = 'images/sunrise.jpg';
+      } else if (state == 2) {
+        return theme = 'images/day.jpg';
+      } else if (state == 3) {
+        return theme = 'images/sunset.jpg';
+      } else if (state == 4) {
+        return theme = 'images/night-landscape.jpg';
+      } else {
+        return theme = 'images/night-landscape.jpg';
+      }
+    }
+
+    Timer? _timer;
 
     void minuteChangeDetector() {
+      _timer?.cancel();
       DateTime lastTime = DateTime.now();
 
-      Timer.periodic(const Duration(seconds: 1), (_) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (_) {
         var currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
           int hour = currentTime.timeZoneOffset.inHours;
@@ -95,8 +113,23 @@ class _HomeState extends State<Home> {
           } else {
             currentTime = currentTime.add(Duration(hours: hourDiff));
           }
+          
+          if (currentTime.hour >= 6 && currentTime.hour < 7) {
+            isDayTime = 1;
+          } else if (currentTime.hour >= 7 && currentTime.hour < 17) {
+            isDayTime = 2;
+          } else if (currentTime.hour >= 17 && currentTime.hour < 19) {
+            isDayTime = 3;
+          } else if (currentTime.hour >= 19) {
+            isDayTime = 4;
+          } else if (currentTime.hour < 6) {
+            isDayTime = 4;
+          }
+
+          print(isDayTime);
           setState(() {
             data['time'] = DateFormat('h:mm a').format(currentTime);
+            theme = setTheme(isDayTime);
           });
         }
         lastTime = currentTime;
@@ -105,19 +138,7 @@ class _HomeState extends State<Home> {
 
     minuteChangeDetector();
 
-    String theme = '';
-
-    if (data['isDayTime'] == 1) {
-      theme = 'images/sunrise.jpg';
-    } else if (data['isDayTime'] == 2) {
-      theme = 'images/day.jpg';
-    } else if (data['isDayTime'] == 3) {
-      theme = 'images/sunset.jpg';
-    } else if (data['isDayTime'] == 4) {
-      theme = 'images/night-landscape.jpg';
-    } else {
-      theme = 'images/night-landscape.jpg';
-    }
+    theme = setTheme(data['isDayTime']);
 
     // print(data);
 
