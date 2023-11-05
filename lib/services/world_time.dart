@@ -10,6 +10,7 @@ class WorldTime {
   late String flag; // Location Flag URL
   late String url; // Location for API
   late String offset; // Offset
+  late String theme; // Theme
   int isDayTime =
       0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
 
@@ -18,7 +19,7 @@ class WorldTime {
   Future<void> getTime(context) async {
     try {
       Response response =
-          await get(Uri.parse('http://worldtimeapi.org/api/timezone/$url'));
+          await get(Uri.parse('https://worldtimeapi.org/api/timezone/$url'));
       Map data = jsonDecode(response.body);
       offset = data['utc_offset'];
       String utcOffset = data['utc_offset'].substring(1, 3);
@@ -53,6 +54,19 @@ class WorldTime {
       } else if (now.hour < 6) {
         isDayTime = 4;
       }
+
+      if (isDayTime == 1) {
+        theme = 'images/sunrise.jpg';
+      } else if (isDayTime == 2) {
+        theme = 'images/day.jpg';
+      } else if (isDayTime == 3) {
+        theme = 'images/sunset.jpg';
+      } else if (isDayTime == 4) {
+        theme = 'images/night-landscape.jpg';
+      } else {
+        theme = 'images/night-landscape.jpg';
+      }
+      
       time = DateFormat.jm().format(now);
 
       ScaffoldMessenger.of(context).showSnackBar(

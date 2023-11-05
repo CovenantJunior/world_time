@@ -59,7 +59,8 @@ class _HomeState extends State<Home> {
           'flag': init.flag,
           'time': init.time,
           'offset': init.offset,
-          'isDayTime': init.isDayTime
+          'isDayTime': init.isDayTime,
+          'theme': init.theme
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
@@ -81,10 +82,13 @@ class _HomeState extends State<Home> {
     } */
 
 
+    Timer? _timer; // Declare the timer as an instance variable
+
     void minuteChangeDetector() {
+
       DateTime lastTime = DateTime.now();
 
-      Timer.periodic(const Duration(seconds: 1), (_) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         var currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
           int hour = currentTime.timeZoneOffset.inHours;
@@ -98,26 +102,15 @@ class _HomeState extends State<Home> {
           setState(() {
             data['time'] = DateFormat('h:mm a').format(currentTime);
           });
+          print(data['time']);
+          lastTime = currentTime;
+          _timer?.cancel(); // Cancel any previous timer if it exists
         }
-        lastTime = currentTime;
       });
     }
 
+
     minuteChangeDetector();
-
-    String theme = '';
-
-    if (data['isDayTime'] == 1) {
-      theme = 'images/sunrise.jpg';
-    } else if (data['isDayTime'] == 2) {
-      theme = 'images/day.jpg';
-    } else if (data['isDayTime'] == 3) {
-      theme = 'images/sunset.jpg';
-    } else if (data['isDayTime'] == 4) {
-      theme = 'images/night-landscape.jpg';
-    } else {
-      theme = 'images/night-landscape.jpg';
-    }
 
     // print(data);
 
@@ -132,7 +125,7 @@ class _HomeState extends State<Home> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(theme), fit: BoxFit.cover)),
+                    image: AssetImage(data['theme']), fit: BoxFit.cover)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
               child: Column(
