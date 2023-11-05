@@ -68,9 +68,6 @@ class WorldTime {
       }
       
       time = DateFormat.jm().format(now);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Timezone has been synchronized.')));
       print('Fetched successfully');
     } catch (e) {
       // print(e);

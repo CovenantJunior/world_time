@@ -15,6 +15,7 @@ class _HomeState extends State<Home> {
   Map data = {};
   late int isDayTime;
   late String theme;
+  Timer? _timer; // Declare the timer as an instance variable
 
   String cleanString(String originalString) {
     String modifiedString = originalString.replaceAll('_', ' ');
@@ -48,7 +49,7 @@ class _HomeState extends State<Home> {
     // print(data);
 
     // ignore: non_constant_identifier_names
-    Future<void> TimezoneUpdate(BuildContext context) async {
+    Future<void> TimezoneUpdate(context) async {
       WorldTime init = WorldTime(
           location: data['location'],
           flag: data['location'],
@@ -66,6 +67,9 @@ class _HomeState extends State<Home> {
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
+      _timer?.cancel();
+      ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Timezone has been synchronized.')));
     }
 
     bool isNegativeOffset = data['offset'].startsWith('-');/* 
@@ -84,7 +88,6 @@ class _HomeState extends State<Home> {
     } */
 
 
-    Timer? _timer; // Declare the timer as an instance variable
 
     void minuteChangeDetector() {
 
@@ -183,6 +186,7 @@ class _HomeState extends State<Home> {
                           };
                           // print(data);
                         });
+                        _timer?.cancel();
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
