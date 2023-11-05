@@ -13,6 +13,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   Map data = {};
+  late int isDayTime;
+  late String theme;
 
   String cleanString(String originalString) {
     String modifiedString = originalString.replaceAll('_', ' ');
@@ -99,8 +101,34 @@ class _HomeState extends State<Home> {
           } else {
             currentTime = currentTime.add(Duration(hours: hourDiff));
           }
+
+          if (currentTime.hour >= 6 && currentTime.hour < 7) {
+            isDayTime = 1;
+          } else if (currentTime.hour >= 7 && currentTime.hour < 17) {
+            isDayTime = 2;
+          } else if (currentTime.hour >= 17 && currentTime.hour < 19) {
+            isDayTime = 3;
+          } else if (currentTime.hour >= 19) {
+            isDayTime = 4;
+          } else if (currentTime.hour < 6) {
+            isDayTime = 4;
+          }
+
+          if (isDayTime == 1) {
+            theme = 'images/sunrise.jpg';
+          } else if (isDayTime == 2) {
+            theme = 'images/day.jpg';
+          } else if (isDayTime == 3) {
+            theme = 'images/sunset.jpg';
+          } else if (isDayTime == 4) {
+            theme = 'images/night-landscape.jpg';
+          } else {
+            theme = 'images/night-landscape.jpg';
+          }
+
           setState(() {
-            data['time'] = DateFormat('h:mm a').format(currentTime);
+            data['isDayTime'] = DateFormat('h:mm a').format(currentTime);
+            data['theme'] = theme;
           });
           print(data['time']);
           lastTime = currentTime;
@@ -145,7 +173,8 @@ class _HomeState extends State<Home> {
                             'flag': result['flag'],
                             'time': result['time'],
                             'offset': result['offset'],
-                            'isDayTime': result['isDayTime']
+                            'isDayTime': result['isDayTime'],
+                            'theme': result['theme']
                           };
                           // print(data);
                         });

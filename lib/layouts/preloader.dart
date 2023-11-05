@@ -32,7 +32,8 @@ class _PreloaderState extends State<Preloader> {
       'flag': init.flag,
       'time': init.time,
       'offset': init.offset,
-      'isDayTime': init.isDayTime
+      'isDayTime': init.isDayTime,
+      'theme': init.theme
     });
   }
 
