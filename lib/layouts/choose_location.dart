@@ -450,7 +450,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
       'flag': init.flag,
       'time': init.time,
       'offset': init.offset,
-      'isDayTime': init.isDayTime
+      'isDayTime': init.isDayTime,
+      'theme': init.theme
     });
   }
 
