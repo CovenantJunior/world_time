@@ -127,7 +127,7 @@ class _HomeState extends State<Home> {
           }
 
           setState(() {
-            data['isDayTime'] = DateFormat('h:mm a').format(currentTime);
+            data['time'] = DateFormat('h:mm a').format(currentTime);
             data['theme'] = theme;
           });
           print(data['time']);
