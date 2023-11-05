@@ -114,7 +114,10 @@ class _HomeState extends State<Home> {
             isDayTime = 4;
           }
 
-          if (isDayTime == 1) {
+          if (isDayTime == data['isDayTime']) {
+            // Do nothing
+          } else {
+            if (isDayTime == 1) {
             theme = 'images/sunrise.jpg';
           } else if (isDayTime == 2) {
             theme = 'images/day.jpg';
@@ -125,10 +128,12 @@ class _HomeState extends State<Home> {
           } else {
             theme = 'images/night-landscape.jpg';
           }
+          }
 
           setState(() {
             data['time'] = DateFormat('h:mm a').format(currentTime);
             data['theme'] = theme;
+            data['isDayTime'] = isDayTime;
           });
           print(data['time']);
           lastTime = currentTime;
