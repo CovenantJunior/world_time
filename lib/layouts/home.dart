@@ -98,11 +98,11 @@ class _HomeState extends State<Home> {
         if (currentTime.minute != lastTime.minute) {
           int hour = currentTime.timeZoneOffset.inHours;
           if (isNegativeOffset) {
-            String offset = data['offset'];
+            String offset = data['offset'].split(':')[0];
             int hourDiff = int.parse(offset) + hour;
             currentTime = currentTime.subtract(Duration(hours: hourDiff));
           } else {
-            String offset = data['offset'];
+            String offset = data['offset'].split(':')[0];
             int hourDiff = int.parse(offset) - hour;
             currentTime = currentTime.add(Duration(hours: hourDiff));
           }
