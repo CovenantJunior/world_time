@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
       });
       _timer?.cancel();
       ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Timezone has been synchronized.')));
+        const SnackBar(content: Text('Timezone has been synchronized.')));
     }
 
     bool isNegativeOffset = data['offset'].startsWith('-');/* 
