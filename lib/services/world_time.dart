@@ -26,7 +26,7 @@ class WorldTime {
       // print(datetime);
 
       // Determine the sign of the UTC offset (+ or -)
-      bool isNegativeOffset = data['utc_offset'].startsWith('-');
+      // bool isNegativeOffset = data['utc_offset'].startsWith('-');
       utcOffset = utcOffset.substring(1); // Remove the sign
 
       // print(datetime);
@@ -35,10 +35,15 @@ class WorldTime {
       // Create Datetime() object
       String datetime = data['datetime'];
       DateTime now = DateTime.parse(datetime);
-      if (isNegativeOffset) {
-        now = now.subtract(Duration(hours: int.parse(utcOffset)));
+
+      int myOffset = now.timeZoneOffset.inHours;
+      int remoteOffset = int.parse(offset.split(':')[0]);
+      int hourDiff = remoteOffset - (myOffset);
+      print(hourDiff);
+      if (myOffset > remoteOffset) {
+        now = now.subtract(Duration(hours: -hourDiff));
       } else {
-        now = now.add(Duration(hours: int.parse(utcOffset)));
+        now = now.add(Duration(hours: hourDiff));
       }
 
       // Set time props

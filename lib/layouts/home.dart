@@ -72,11 +72,21 @@ class _HomeState extends State<Home> {
         const SnackBar(content: Text('Timezone has been synchronized.')));
     }
 
-    bool isNegativeOffset = data['offset'].startsWith('-');/* 
-
+    /* bool isNegativeRemoteOffset = data['offset'].startsWith('-');
+    bool isNegativeTimeZoneOffset (n) {
+      if (n > 0) {
+        return false;
+      } else if (n < 0) {
+        return true;
+      } else {
+        return false;
+      }
+    } */
+  
+  /*
     Future<void> timeUpdate(Map data) async {
       var currentTime = DateTime.now();
-      if (isNegativeOffset) {
+      if (isNegativeRemoteOffset) {
         currentTime = currentTime.subtract(Duration(hours: int.parse(data['offset'])));
       } else {
         currentTime = currentTime.add(Duration(hours: int.parse(data['offset'])));
@@ -96,14 +106,13 @@ class _HomeState extends State<Home> {
       _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         var currentTime = DateTime.now();
         if (currentTime.minute != lastTime.minute) {
-          int hour = currentTime.timeZoneOffset.inHours;
-          if (isNegativeOffset) {
-            String offset = data['offset'].split(':')[0];
-            int hourDiff = int.parse(offset) + hour;
-            currentTime = currentTime.subtract(Duration(hours: hourDiff));
+          int myOffset = currentTime.timeZoneOffset.inHours;
+          int remoteOffset = int.parse(data['offset'].split(':')[0]);
+          int hourDiff = remoteOffset - (myOffset);
+          print(hourDiff);
+          if (myOffset > remoteOffset) {
+            currentTime = currentTime.subtract(Duration(hours: -hourDiff));
           } else {
-            String offset = data['offset'].split(':')[0];
-            int hourDiff = int.parse(offset) - hour;
             currentTime = currentTime.add(Duration(hours: hourDiff));
           }
 
