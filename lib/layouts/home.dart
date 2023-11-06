@@ -117,10 +117,7 @@ class _HomeState extends State<Home> {
             isDayTime = 4;
           }
 
-          if (isDayTime == data['isDayTime']) {
-            // Do nothing
-          } else {
-            if (isDayTime == 1) {
+          if (isDayTime == 1) {
             theme = 'images/sunrise.jpg';
           } else if (isDayTime == 2) {
             theme = 'images/day.jpg';
@@ -130,7 +127,6 @@ class _HomeState extends State<Home> {
             theme = 'images/night-landscape.jpg';
           } else {
             theme = 'images/night-landscape.jpg';
-          }
           }
 
           setState(() {
