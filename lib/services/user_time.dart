@@ -76,7 +76,6 @@ class UserTime {
       int myOffset = now.timeZoneOffset.inHours;
       int remoteOffset = int.parse(offset.split(':')[0]);
       int hourDiff = remoteOffset - (myOffset);
-      print(hourDiff);
       if (myOffset > remoteOffset) {
         now = now.subtract(Duration(hours: -hourDiff));
       } else {
