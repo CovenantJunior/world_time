@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
       });
       _timer?.cancel();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Timezone has been synchronized.')));
+        const SnackBar(content: Text('Timezone information has been synchronized.')));
     }
 
     /* bool isNegativeRemoteOffset = data['offset'].startsWith('-');
@@ -161,6 +161,8 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Synchronizing')));
           TimezoneUpdate(context);
         },
         child: SingleChildScrollView(

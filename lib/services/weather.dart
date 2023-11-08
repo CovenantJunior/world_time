@@ -18,7 +18,7 @@ class Weather {
   late String uvIndex;
   late List forecastDays;
 
-  Weather({required location});
+  Weather({required this.location});
 
   Future<void> getWeather() async {
     try {
