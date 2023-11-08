@@ -33,7 +33,9 @@ class _PreloaderState extends State<Preloader> {
       'time': init.time,
       'offset': init.offset,
       'isDayTime': init.isDayTime,
-      'theme': init.theme
+      'theme': init.theme,
+      'temperatureC': init.temperatureC,
+      'temperatureF': init.temperatureF
     });
   }
 

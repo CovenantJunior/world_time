@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:world_time/services/weather.dart';
 
 class WorldTime {
   late String location; // Location for the UI
@@ -11,10 +12,26 @@ class WorldTime {
   late String url; // Location for API
   late String offset; // Offset
   late String theme; // Theme
-  int isDayTime =
-      0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
+  int isDayTime = 0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
+  late double temperatureC; // Temperature in degree Celcius
+  late double temperatureF; // Temperature in degree Farenheit
 
   WorldTime({required this.location, required this.flag, required this.url});
+
+  String cleanString(String originalString) {
+    String modifiedString = originalString.replaceAll('_', ' ');
+    return modifiedString;
+  }
+
+  String getCity(location) {
+    List<String> parts = location.split(' / ');
+    if (parts.length >= 2) {
+      String result = parts[1];
+      return result;
+    } else {
+      return location;
+    }
+  }
 
   Future<void> getTime(context) async {
     try {
@@ -73,6 +90,14 @@ class WorldTime {
       }
       
       time = DateFormat.jm().format(now);
+
+      // For weather properties
+      Weather weather = Weather(location: getCity(cleanString(location)));
+      print(getCity(cleanString(location)));
+      await weather.getWeather();
+      temperatureC = weather.temperatureC;
+      temperatureF = weather.temperatureF;
+      
       print('Fetched successfully');
     } catch (e) {
       // print(e);

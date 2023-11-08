@@ -63,7 +63,9 @@ class _HomeState extends State<Home> {
           'time': init.time,
           'offset': init.offset,
           'isDayTime': init.isDayTime,
-          'theme': init.theme
+          'theme': init.theme,
+          'temperatureC': init.temperatureC,
+          'temperatureF': init.temperatureF
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
@@ -109,7 +111,6 @@ class _HomeState extends State<Home> {
           int myOffset = currentTime.timeZoneOffset.inHours;
           int remoteOffset = int.parse(data['offset'].split(':')[0]);
           int hourDiff = remoteOffset - (myOffset);
-          print(hourDiff);
           if (myOffset > remoteOffset) {
             currentTime = currentTime.subtract(Duration(hours: -hourDiff));
           } else {
@@ -189,7 +190,9 @@ class _HomeState extends State<Home> {
                             'time': result['time'],
                             'offset': result['offset'],
                             'isDayTime': result['isDayTime'],
-                            'theme': result['theme']
+                            'theme': result['theme'],
+                            'temperatureC': result['temperatureC'],
+                            'temperatureF': result['temperatureF']
                           };
                           // print(data);
                         });
@@ -204,16 +207,39 @@ class _HomeState extends State<Home> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-                                  child: Text(
-                                    getCity(cleanString(data['location'])),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 50,
-                                      fontFamily: 'Lato',
-                                      fontWeight: FontWeight.normal,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: getCity(cleanString(data['location'])), // The regular text
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 50,
+                                            fontFamily: 'Lato',
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                        WidgetSpan(
+                                          alignment: PlaceholderAlignment.middle,
+                                          child: Baseline(
+                                            baseline: -20.0, // Adjust this value for vertical positioning
+                                            baselineType: TextBaseline.alphabetic,
+                                            child: Text(
+                                              " ${data['temperatureC']} °C", // The superscripted part
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 24, // Adjust the font size for the superscript
+                                                fontFamily: 'Lato',
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     textAlign: TextAlign.center,
-                                  ),
+                                  )
+,
                                 ),
                               ],
                             ),

@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:world_time/services/weather.dart';
 
 class UserTime {
   late String location; // Location for the UI
@@ -11,8 +12,9 @@ class UserTime {
   late String url; // Location for API
   late String offset; // Offset
   late String theme; // Theme
-  int isDayTime =
-      0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
+  int isDayTime = 0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
+  late double temperatureC; // Temperature in degree Celcius
+  late double temperatureF; // Temperature in degree Farenheit
 
   UserTime();
 
@@ -29,6 +31,21 @@ class UserTime {
     } else {
       String mainLocation = parts[0];
       return mainLocation;
+    }
+  }
+
+  String cleanString(String originalString) {
+    String modifiedString = originalString.replaceAll('_', ' ');
+    return modifiedString;
+  }
+
+  String getCity(location) {
+    List<String> parts = location.split(' / ');
+    if (parts.length >= 2) {
+      String result = parts[1];
+      return result;
+    } else {
+      return location;
     }
   }
 
@@ -93,6 +110,14 @@ class UserTime {
       }
       
       time = DateFormat.jm().format(now);
+
+
+      // For weather properties
+      Weather weather = Weather(location: getCity(cleanString(location)));
+      await weather.getWeather();
+      temperatureC = weather.temperatureC;
+      temperatureF = weather.temperatureF;
+
       print('Fetched successfully');
     } catch (e) {
       location = 'N/A';
@@ -115,7 +140,7 @@ class UserTime {
       }
 
       Fluttertoast.showToast(
-        msg: 'No internet connection, pull down to refresh',
+        msg: 'No internet connection',
         toastLength: Toast.LENGTH_SHORT, // Duration of the toast
         gravity: ToastGravity
             .BOTTOM, // Position of the toast (e.g., bottom, top, center)
