@@ -22,7 +22,7 @@ class Weather {
 
   Future<void> getWeather() async {
     try {
-      Response response = await get(Uri.parse('https://api.weatherapi.com/v1/forecast.json?key=4407b42fea084ec7818225848233010&q=Manila&days=2&aqi=yes&alerts=yes'));
+      Response response = await get(Uri.parse('https://api.weatherapi.com/v1/forecast.json?key=4407b42fea084ec7818225848233010&q=$location&days=2&aqi=yes&alerts=yes'));
       Map data = jsonDecode(response.body);
       Map current = data['current'];
       forecastDays = data['forecast']['forecastday'];
