@@ -6,7 +6,8 @@ import 'package:http/http.dart';
 class Weather {
   late double temperatureC;
   late double temperatureF;
-  late String condition;
+  late String conditionTitle;
+  late String conditionIcon;
   late String location;
   late String time;
   late String windSpeed;
@@ -25,6 +26,8 @@ class Weather {
       Response response = await get(Uri.parse('https://api.weatherapi.com/v1/forecast.json?key=4407b42fea084ec7818225848233010&q=$location&days=2&aqi=yes&alerts=yes'));
       Map data = jsonDecode(response.body);
       Map current = data['current'];
+      conditionTitle = data['current']['condition']['text'];
+      conditionIcon = data['current']['condition']['icon'];
       forecastDays = data['forecast']['forecastday'];
       temperatureC = current['temp_c'];
       temperatureF = current['temp_f'];

@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
       });
       _timer?.cancel();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Timezone information has been synchronized.')));
+        const SnackBar(content: Text('Timezone data has been synchronized.')));
     }
 
     /* bool isNegativeRemoteOffset = data['offset'].startsWith('-');
@@ -194,7 +194,9 @@ class _HomeState extends State<Home> {
                             'isDayTime': result['isDayTime'],
                             'theme': result['theme'],
                             'temperatureC': result['temperatureC'],
-                            'temperatureF': result['temperatureF']
+                            'temperatureF': result['temperatureF'],
+                            'conditionTitle': result['conditionTitle'],
+                            'conditionIcon': result['conditionIcon']
                           };
                           // print(data);
                         });
@@ -218,7 +220,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                             fontSize: 50,
                                             fontFamily: 'Lato',
-                                            fontWeight: FontWeight.normal,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
                                         WidgetSpan(
@@ -227,7 +229,7 @@ class _HomeState extends State<Home> {
                                             baseline: -20.0, // Adjust this value for vertical positioning
                                             baselineType: TextBaseline.alphabetic,
                                             child: Text(
-                                              " ${data['temperatureC']} °C", // The superscripted part
+                                              " ${data['temperatureC'].toInt()} °C", // The superscripted part
                                               style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 24, // Adjust the font size for the superscript
