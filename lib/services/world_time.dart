@@ -6,15 +6,17 @@ import 'package:intl/intl.dart';
 import 'package:world_time/services/weather.dart';
 
 class WorldTime {
-  late String location; // Location for the UI
-  late String time; // Location Time
-  late String flag; // Location Flag URL
-  late String url; // Location for API
-  late String offset; // Offset
-  late String theme; // Theme
-  int isDayTime = 0; // If 1 for sunrise, 2 for daytime, 3 for sunset, 4 for night
-  late double temperatureC; // Temperature in degree Celcius
-  late double temperatureF; // Temperature in degree Farenheit
+  late String location;
+  late String time;
+  late String flag;
+  late String url;
+  late String offset;
+  late String theme;
+  int isDayTime = 0;
+  late double temperatureC;
+  late double temperatureF;
+  late String conditionTitle;
+  late String conditionIcon;
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -94,6 +96,8 @@ class WorldTime {
       Weather weather = Weather(location: getCity(cleanString(location)));
       print(getCity(cleanString(location)));
       await weather.getWeather();
+      conditionTitle = weather.conditionTitle;
+      conditionIcon = weather.conditionIcon;
       temperatureC = weather.temperatureC;
       temperatureF = weather.temperatureF;
       

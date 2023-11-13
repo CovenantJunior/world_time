@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:world_time/services/world_time.dart';
@@ -65,7 +66,9 @@ class _HomeState extends State<Home> {
           'isDayTime': init.isDayTime,
           'theme': init.theme,
           'temperatureC': init.temperatureC,
-          'temperatureF': init.temperatureF
+          'temperatureF': init.temperatureF,
+          'conditionTitle': init.conditionTitle,
+          'conditionIcon': init.conditionIcon
         };
         // scheduleCustomUpdate(timeUpdate, init.seconds);
       });
@@ -177,7 +180,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Tooltip(
+                  /* Tooltip(
                     message: 'Choose Location',
                     child: TextButton(
                       onPressed: () async {
@@ -258,7 +261,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                  ),
+                  ), */
                   // const SizedBox(height: 30),
                   /* const Text(
                     'Choose Location',
@@ -266,7 +269,7 @@ class _HomeState extends State<Home> {
                       color: Colors.white,
                     ),
                   ), */
-                  Row(
+                  /* Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
@@ -281,24 +284,83 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ],
+                  ), */
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
                   ),
-                  const Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Card(
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage('https://cdn.weatherapi.com/weather/64x64/day/176.png'),
-                          ),
-                        )
+                  Center(
+                    child: Text(
+                      data['location'],
+                      style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 50,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Text(
+                      " ${data['temperatureC'].toInt()} °C", // The superscripted part
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 50, // Adjust the font size for the superscript
+                        fontFamily: 'MontserratAlternates',
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  )
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      data['conditionTitle'],
+                      style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontFamily: 'MontserratAlternates',
+                      fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const IconButton(
+          onPressed: null,
+          icon: Icon(
+            Icons.edit_location,
+            color: Colors.white,
+          ),
+        ),
+        onPressed: () async {
+          // Navigator.pushNamed(context, '/choose_location');
+          dynamic result = await Navigator.pushNamed(
+              context, '/choose_location');
+          setState(() {
+            data = {
+              'url': result['url'],
+              'location': result['location'],
+              'flag': result['flag'],
+              'time': result['time'],
+              'offset': result['offset'],
+              'isDayTime': result['isDayTime'],
+              'theme': result['theme'],
+              'temperatureC': result['temperatureC'],
+              'temperatureF': result['temperatureF'],
+              'conditionTitle': result['conditionTitle'],
+              'conditionIcon': result['conditionIcon']
+            };
+            // print(data);
+          });
+          _timer?.cancel();
+        },
       ),
     );
   }
