@@ -453,7 +453,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
       'isDayTime': init.isDayTime,
       'theme': init.theme,
       'temperatureC': init.temperatureC,
-      'temperatureF': init.temperatureF
+      'temperatureF': init.temperatureF,
+      'conditionTitle': init.conditionTitle,
+      'conditionIcon': init.conditionIcon
     });
   }
 

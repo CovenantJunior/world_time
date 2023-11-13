@@ -293,7 +293,7 @@ class _HomeState extends State<Home> {
                   ),
                   Center(
                     child: Text(
-                      data['location'],
+                      getCity(cleanString(data['location'])),
                       style: const TextStyle(
                       color: Colors.white,
                       fontSize: 50,
