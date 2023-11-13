@@ -16,6 +16,7 @@ void main() {
   HttpOverrides.global = MyHttpOverrides();
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
         '/' : (context) => const Preloader(),

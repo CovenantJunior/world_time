@@ -242,8 +242,7 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                     textAlign: TextAlign.center,
-                                  )
-,
+                                  ),
                                 ),
                               ],
                             ),
@@ -283,9 +282,18 @@ class _HomeState extends State<Home> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Card(
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage('https://cdn.weatherapi.com/weather/64x64/day/176.png'),
+                          ),
+                        )
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
