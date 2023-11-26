@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ForecastCard extends StatelessWidget {
@@ -15,36 +18,65 @@ class ForecastCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.transparent,
       elevation: 4,
       margin: const EdgeInsets.all(8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image.network(
-              weatherIcon,
-              width: 50, // Adjust the size of the weather icon
-              height: 50,
+      child: Column(
+        children: [
+          BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ClipOval(
+                    child: CachedNetworkImage(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      imageUrl: weatherIcon, // Update as needed
+                      placeholder: (context, url) => const CircularProgressIndicator(
+                        value: null,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+                      ),
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                        backgroundImage: AssetImage('images/flags/timezone.png'),
+                        backgroundColor: Colors.transparent,
+                        radius: 50,
+                      ),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        backgroundImage: imageProvider,
+                        backgroundColor: Colors.transparent,
+                        radius: 50,
+                      ),
+                      height: 50,
+                      width: 50,
+                    ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  dayTime,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'MontserratAlternates',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  temperature,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'MontserratAlternates',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            Text(
-              dayTime,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              temperature,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

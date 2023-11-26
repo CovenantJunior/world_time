@@ -199,7 +199,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   ClipOval(
                     child: CachedNetworkImage(
@@ -233,7 +233,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Center(
                     child: Text(
@@ -245,9 +245,19 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.bold),
                     ),
                   ),
-                  SizedBox(height: 20,),
-                  // wind Speed, Humidity, UV
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text(
+                          data['time'],
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: 'MontserratAlternates',
+                              fontWeight: FontWeight.normal),
+                        ),
+                  ),
+                  // Wind Speed, Humidity, UV
+                  const SizedBox(height: 20),
                   // Forecast
                   Row(
                     children: [
