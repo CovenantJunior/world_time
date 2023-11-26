@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
       });
       _timer?.cancel();
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Timezone data has been synchronized.')));
+        const SnackBar(content: Text('Timezone and weather metrics have been synchronized.')));
     }
 
     /* bool isNegativeRemoteOffset = data['offset'].startsWith('-');
@@ -257,9 +257,85 @@ class _HomeState extends State<Home> {
                         ),
                   ),
                   const Divider(height: 20),
-                  /* const Expanded(
-                    child: ListTile()
-                  ), */
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.air,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'Wind Speed',
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                )
+                              ]
+                            )
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.water_drop_outlined,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'Humidity',
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                )
+                              ]
+                            )
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.sunny,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'UV',
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                )
+                              ]
+                            )
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Icon(
+                                  Icons.thermostat,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'Feels Like',
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                )
+                              ]
+                            )
+                          ),
+                        
+                        ],
+                      ),
+                    ),
+                  ),
                   const Divider(height: 20),
                   // Forecast
                   SizedBox(
