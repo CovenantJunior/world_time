@@ -182,7 +182,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
+                    filter: (data['isDayTime'] == 2) ? ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0) : ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
                     child: Container(
                       color: Colors.transparent,
                     ),
@@ -190,8 +190,8 @@ class _HomeState extends State<Home> {
                   Center(
                     child: Text(
                       getCity(cleanString(data['location'])),
-                      style: TextStyle(
-                        color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
+                      style: const TextStyle(
+                        color: Colors.white,
                         fontSize: 50,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.bold,
@@ -224,8 +224,8 @@ class _HomeState extends State<Home> {
                   Center(
                     child: Text(
                       "${data['temperatureC'].ceil()} °C", // The superscripted part
-                      style: TextStyle(
-                        color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
+                      style: const TextStyle(
+                        color: Colors.white,
                         fontSize: 50, // Adjust the font size for the superscript
                         fontFamily: 'MontserratAlternates',
                         fontWeight: FontWeight.bold,
@@ -238,8 +238,8 @@ class _HomeState extends State<Home> {
                   Center(
                     child: Text(
                       data['conditionTitle'],
-                      style: TextStyle(
-                      color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
+                      style: const TextStyle(
+                      color: Colors.white,
                       fontSize: 20,
                       fontFamily: 'MontserratAlternates',
                       fontWeight: FontWeight.bold),
