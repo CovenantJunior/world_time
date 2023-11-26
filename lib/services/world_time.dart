@@ -94,14 +94,13 @@ class WorldTime {
 
       // For weather properties
       Weather weather = Weather(location: getCity(cleanString(location)));
-      print(getCity(cleanString(location)));
       await weather.getWeather();
       conditionTitle = weather.conditionTitle;
       conditionIcon = weather.conditionIcon;
       temperatureC = weather.temperatureC;
       temperatureF = weather.temperatureF;
       
-      print('Fetched successfully');
+      // print('Fetched successfully');
     } catch (e) {
       // print(e);
       DateTime now = DateTime.now();

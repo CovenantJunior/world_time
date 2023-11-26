@@ -121,7 +121,7 @@ class UserTime {
       temperatureC = weather.temperatureC;
       temperatureF = weather.temperatureF;
 
-      print('Fetched successfully');
+      // print('Fetched successfully');
     } catch (e) {
       location = 'N/A';
       DateTime now = DateTime.now();
@@ -141,6 +141,11 @@ class UserTime {
       } else if (now.hour < 6) {
         isDayTime = 4;
       }
+
+      conditionTitle = '';
+      conditionIcon = '';
+      temperatureC = 0;
+      temperatureF = 0;
 
       Fluttertoast.showToast(
         msg: 'No internet connection',

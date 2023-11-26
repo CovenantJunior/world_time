@@ -442,7 +442,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
     /* setState(() {
       time = init.time;
     }); */
-    print('Fetched successfully');
+    // print('Fetched successfully');
     // ignore: use_build_context_synchronously
     Navigator.pop(context, {
       'url': init.url,
@@ -543,7 +543,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
                     ),
                     errorWidget: (context, url, error) => const CircleAvatar(
                       backgroundImage: AssetImage('images/flags/timezone.png'),
-                      backgroundColor: Colors.transparent,
+                      backgroundColor: Colors.lightBlue,
                       radius: 50,
                     ),
                     imageBuilder: (context, imageProvider) => CircleAvatar(
@@ -1253,7 +1253,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (int i = 0; i < africaTimezones.length; i++) {
       String location = extractLocation(africaTimezones[i]['timezone']);

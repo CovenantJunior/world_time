@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:world_time/layouts/forecast_cards.dart';
 import 'package:world_time/services/world_time.dart';
 // import 'package:world_time/services/world_time.dart';
 
@@ -149,7 +151,7 @@ class _HomeState extends State<Home> {
             data['theme'] = theme;
             data['isDayTime'] = isDayTime;
           });
-          print(data['time']);
+          // print(data['time']);
           lastTime = currentTime;
           _timer?.cancel(); // Cancel any previous timer if it exists
         }
@@ -178,113 +180,7 @@ class _HomeState extends State<Home> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /* Tooltip(
-                    message: 'Choose Location',
-                    child: TextButton(
-                      onPressed: () async {
-                        // Navigator.pushNamed(context, '/choose_location');
-                        dynamic result = await Navigator.pushNamed(
-                            context, '/choose_location');
-                        setState(() {
-                          data = {
-                            'url': result['url'],
-                            'location': result['location'],
-                            'flag': result['flag'],
-                            'time': result['time'],
-                            'offset': result['offset'],
-                            'isDayTime': result['isDayTime'],
-                            'theme': result['theme'],
-                            'temperatureC': result['temperatureC'],
-                            'temperatureF': result['temperatureF'],
-                            'conditionTitle': result['conditionTitle'],
-                            'conditionIcon': result['conditionIcon']
-                          };
-                          // print(data);
-                        });
-                        _timer?.cancel();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            flex: 10,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: getCity(cleanString(data['location'])), // The regular text
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 50,
-                                            fontFamily: 'Lato',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        WidgetSpan(
-                                          alignment: PlaceholderAlignment.middle,
-                                          child: Baseline(
-                                            baseline: -20.0, // Adjust this value for vertical positioning
-                                            baselineType: TextBaseline.alphabetic,
-                                            child: Text(
-                                              " ${data['temperatureC'].toInt()} °C", // The superscripted part
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 24, // Adjust the font size for the superscript
-                                                fontFamily: 'Lato',
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Expanded(
-                            flex: 1,
-                            child: Row(
-                              children: [
-                                Icon(Icons.edit_location, color: Colors.white),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ), */
-                  // const SizedBox(height: 30),
-                  /* const Text(
-                    'Choose Location',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ), */
-                  /* Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          data['time'],
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 60,
-                              fontFamily: 'MontserratAlternates',
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ),
-                    ],
-                  ), */
                   BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
                     child: Container(
@@ -294,11 +190,46 @@ class _HomeState extends State<Home> {
                   Center(
                     child: Text(
                       getCity(cleanString(data['location'])),
-                      style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 50,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
+                        fontSize: 50,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ClipOval(
+                    child: CachedNetworkImage(
+                      // ignore: prefer_interpolation_to_compose_strings
+                      imageUrl: "https:" + data['conditionIcon'], // Update as needed
+                      placeholder: (context, url) => const CircularProgressIndicator(
+                        value: null,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
+                      ),
+                      errorWidget: (context, url, error) => const CircleAvatar(
+                        backgroundImage: AssetImage('images/flags/timezone.png'),
+                        backgroundColor: Colors.transparent,
+                        radius: 50,
+                      ),
+                      imageBuilder: (context, imageProvider) => CircleAvatar(
+                        backgroundImage: imageProvider,
+                        backgroundColor: Colors.transparent,
+                        radius: 50,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      "${data['temperatureC'].ceil()} °C", // The superscripted part
+                      style: TextStyle(
+                        color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
+                        fontSize: 50, // Adjust the font size for the superscript
+                        fontFamily: 'MontserratAlternates',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -306,24 +237,26 @@ class _HomeState extends State<Home> {
                   ),
                   Center(
                     child: Text(
-                      " ${data['temperatureC'].toInt()} °C", // The superscripted part
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 50, // Adjust the font size for the superscript
-                        fontFamily: 'MontserratAlternates',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
                       data['conditionTitle'],
-                      style: const TextStyle(
-                      color: Colors.white,
+                      style: TextStyle(
+                      color: (data['isDayTime'] == 2) ? Colors.black : Colors.white,
                       fontSize: 20,
                       fontFamily: 'MontserratAlternates',
                       fontWeight: FontWeight.bold),
                     ),
+                  ),
+                  SizedBox(height: 20,),
+                  // wind Speed, Humidity, UV
+                  SizedBox(height: 20,),
+                  // Forecast
+                  Row(
+                    children: [
+                      ForecastCard(
+                        weatherIcon: 'https://cdn.weatherapi.com/weather/64x64/night/116.png',
+                        dayTime: data['time'],
+                        temperature:  "${data['temperatureC'].ceil()} °C",
+                      ),
+                    ],
                   ),
                 ],
               ),

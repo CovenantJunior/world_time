@@ -32,7 +32,7 @@ class Weather {
       temperatureC = current['temp_c'];
       temperatureF = current['temp_f'];
     } catch (e) {
-      print(e);
+      // print(e);
       Fluttertoast.showToast(
         msg: 'No internet connection, pull down to refresh',
         toastLength: Toast.LENGTH_SHORT, // Duration of the toast

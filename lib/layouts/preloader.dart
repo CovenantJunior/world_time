@@ -44,7 +44,6 @@ class _PreloaderState extends State<Preloader> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setupWorldTime();
   }
