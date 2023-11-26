@@ -253,7 +253,7 @@ class _HomeState extends State<Home> {
                               color: Colors.white,
                               fontSize: 20,
                               fontFamily: 'MontserratAlternates',
-                              fontWeight: FontWeight.normal),
+                              fontWeight: FontWeight.bold),
                         ),
                   ),
                   const Divider(height: 20),
@@ -274,7 +274,8 @@ class _HomeState extends State<Home> {
                                 Text(
                                   'Wind Speed',
                                   style: TextStyle(
-                                    color: Colors.white
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 )
                               ]
@@ -291,7 +292,8 @@ class _HomeState extends State<Home> {
                                 Text(
                                   'Humidity',
                                   style: TextStyle(
-                                    color: Colors.white
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 )
                               ]
@@ -308,7 +310,8 @@ class _HomeState extends State<Home> {
                                 Text(
                                   'UV',
                                   style: TextStyle(
-                                    color: Colors.white
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 )
                               ]
@@ -325,7 +328,8 @@ class _HomeState extends State<Home> {
                                 Text(
                                   'Feels Like',
                                   style: TextStyle(
-                                    color: Colors.white
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold
                                   ),
                                 )
                               ]
