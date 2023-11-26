@@ -198,7 +198,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  const Divider(
                     height: 10,
                   ),
                   ClipOval(
@@ -232,7 +232,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const SizedBox(
+                  const Divider(
                     height: 10,
                   ),
                   Center(
@@ -245,7 +245,7 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const Divider(height: 10),
                   Center(
                     child: Text(
                           data['time'],
@@ -256,17 +256,69 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.normal),
                         ),
                   ),
-                  // Wind Speed, Humidity, UV
-                  const SizedBox(height: 20),
+                  const Divider(height: 20),
+                  /* const Expanded(
+                    child: ListTile()
+                  ), */
+                  const Divider(height: 20),
                   // Forecast
-                  Row(
-                    children: [
-                      ForecastCard(
-                        weatherIcon: "https:${data['conditionIcon']}",
-                        dayTime: data['time'],
-                        temperature:  "${data['temperatureC'].ceil()} °C",
-                      ),
-                    ],
+                  SizedBox(
+                    height: 200,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                        ForecastCard(
+                          weatherIcon: "https:${data['conditionIcon']}",
+                          dayTime: data['time'],
+                          temperature:  "${data['temperatureC'].ceil()} °C",
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

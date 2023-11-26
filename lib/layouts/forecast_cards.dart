@@ -19,6 +19,9 @@ class ForecastCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.transparent,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
       elevation: 4,
       margin: const EdgeInsets.all(8),
       child: Column(
