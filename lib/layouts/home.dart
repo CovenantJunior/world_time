@@ -204,7 +204,7 @@ class _HomeState extends State<Home> {
                   ClipOval(
                     child: CachedNetworkImage(
                       // ignore: prefer_interpolation_to_compose_strings
-                      imageUrl: "https:" + data['conditionIcon'], // Update as needed
+                      imageUrl: "https:${data['conditionIcon']}", // Update as needed
                       placeholder: (context, url) => const CircularProgressIndicator(
                         value: null,
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.lightBlue),
@@ -262,7 +262,7 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       ForecastCard(
-                        weatherIcon: 'https://cdn.weatherapi.com/weather/64x64/night/116.png',
+                        weatherIcon: "https:${data['conditionIcon']}",
                         dayTime: data['time'],
                         temperature:  "${data['temperatureC'].ceil()} °C",
                       ),
