@@ -263,7 +263,7 @@ class _HomeState extends State<Home> {
                   const Divider(height: 20),
                   // Forecast
                   SizedBox(
-                    height: 200,
+                    height: 170,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
