@@ -43,8 +43,7 @@ class _HomeState extends State<Home> {
 
       Future.delayed(timeOut, () {
         timeUpdate(data);
-      });
-    } */
+      });} */
 
     data = data.isNotEmpty
         ? data
@@ -198,7 +197,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const Divider(
+                  const SizedBox(
                     height: 10,
                   ),
                   ClipOval(
@@ -232,7 +231,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const Divider(
+                  const SizedBox(
                     height: 10,
                   ),
                   Center(
@@ -245,7 +244,7 @@ class _HomeState extends State<Home> {
                       fontWeight: FontWeight.bold),
                     ),
                   ),
-                  const Divider(height: 10),
+                  const SizedBox(height: 10),
                   Center(
                     child: Text(
                           data['time'],
@@ -256,7 +255,7 @@ class _HomeState extends State<Home> {
                               fontWeight: FontWeight.bold),
                         ),
                   ),
-                  const Divider(height: 20),
+                  const SizedBox(height: 20),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Center(
@@ -340,7 +339,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  const Divider(height: 20),
+                  const SizedBox(height: 20),
                   // Forecast
                   SizedBox(
                     height: 170,
